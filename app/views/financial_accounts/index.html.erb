@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Financial accounts</h1>
+
+<div id="financial_accounts">
+  <% @financial_accounts.each do |financial_account| %>
+    <%= render financial_account %>
+    <p>
+      <%= link_to "Show this financial account", financial_account %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New financial account", new_financial_account_path %>

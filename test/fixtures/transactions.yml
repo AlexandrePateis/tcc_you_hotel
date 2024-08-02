@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  execution_date: 2024-08-01
+  transaction_type: MyString
+  payment: one
+  description: MyString
+  payment_method: one
+  financial_account: one
+
+two:
+  execution_date: 2024-08-01
+  transaction_type: MyString
+  payment: two
+  description: MyString
+  payment_method: two
+  financial_account: two

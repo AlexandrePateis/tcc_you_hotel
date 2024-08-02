@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  financial_account: one
+  rate: 9.99
+
+two:
+  name: MyString
+  financial_account: two
+  rate: 9.99

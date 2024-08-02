@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+   <div class="field">
+    <%= form.label :hotel_id %>
+    <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a Hotel" %>
+  </div>
+
   <div class="field">
     <%= form.label :check_in_date %>
     <%= form.date_select :check_in_date %>
@@ -29,11 +34,6 @@
   <div class="field">
     <%= form.label :date %>
     <%= form.date_select :date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :payment_id %>
-    <%= form.collection_select :payment_id, Payment.all, :id, :date, prompt: "Select a Payment" %>
   </div>
 
   <div class="actions">

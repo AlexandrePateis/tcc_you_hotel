@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_02_011247) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_02_012637) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -89,14 +89,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_011247) do
 
   create_table "transactions", force: :cascade do |t|
     t.date "execution_date"
-    t.string "transaction_type"
     t.integer "payment_id", null: false
     t.string "description"
     t.integer "payment_method_id", null: false
-    t.integer "financial_account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["financial_account_id"], name: "index_transactions_on_financial_account_id"
+    t.integer "transaction_type"
     t.index ["payment_id"], name: "index_transactions_on_payment_id"
     t.index ["payment_method_id"], name: "index_transactions_on_payment_method_id"
   end
@@ -107,7 +105,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_011247) do
   add_foreign_key "orders", "payments"
   add_foreign_key "payment_methods", "financial_accounts"
   add_foreign_key "payments", "orders"
-  add_foreign_key "transactions", "financial_accounts"
   add_foreign_key "transactions", "payment_methods"
   add_foreign_key "transactions", "payments"
 end

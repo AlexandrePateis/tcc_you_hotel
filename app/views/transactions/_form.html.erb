@@ -1,47 +1,42 @@
-<%= form_with(model: transaction) do |form| %>
+<%= form_with(model: transaction, local: true) do |form| %>
   <% if transaction.errors.any? %>
-    <div style="color: red">
+    <div id="error_explanation">
       <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
 
       <ul>
-        <% transaction.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% transaction.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :execution_date, style: "display: block" %>
-    <%= form.date_field :execution_date %>
+  <div class="field">
+    <%= form.label :execution_date %>
+    <%= form.date_select :execution_date %>
   </div>
 
-  <div>
-    <%= form.label :transaction_type, style: "display: block" %>
-    <%= form.text_field :transaction_type %>
+  <div class="field">
+    <%= form.label :transaction_type %>
+    <%= form.select :transaction_type, Transaction.transaction_types.keys.map { |type| [type.humanize, type] }, prompt: "Select Type" %>
   </div>
 
-  <div>
-    <%= form.label :payment_id, style: "display: block" %>
-    <%= form.text_field :payment_id %>
+  <div class="field">
+    <%= form.label :payment_id %>
+    <%= form.collection_select :payment_id, Payment.all, :id, :date, prompt: "Select a Payment" %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
+  <div class="field">
+    <%= form.label :description %>
     <%= form.text_field :description %>
   </div>
 
-  <div>
-    <%= form.label :payment_method_id, style: "display: block" %>
-    <%= form.text_field :payment_method_id %>
+  <div class="field">
+    <%= form.label :payment_method_id %>
+    <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name, prompt: "Select a Payment Method" %>
   </div>
 
-  <div>
-    <%= form.label :financial_account_id, style: "display: block" %>
-    <%= form.text_field :financial_account_id %>
-  </div>
-
-  <div>
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>

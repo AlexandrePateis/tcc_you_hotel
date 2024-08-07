@@ -1,42 +1,47 @@
-<%= form_with(model: financial_account) do |form| %>
-  <% if financial_account.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(financial_account.errors.count, "error") %> prohibited this financial_account from being saved:</h2>
+<%= form_with(model: @financial_account, local: true) do |form| %>
+  <% if @financial_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@financial_account.errors.count, "error") %> prohibited this financial_account from being saved:</h2>
 
       <ul>
-        <% financial_account.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @financial_account.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :bank, style: "display: block" %>
+  <div class="field">
+    <%= form.label :hotel_id %>
+    <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a Hotel" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bank %>
     <%= form.text_field :bank %>
   </div>
 
-  <div>
-    <%= form.label :account_name, style: "display: block" %>
+  <div class="field">
+    <%= form.label :account_name %>
     <%= form.text_field :account_name %>
   </div>
 
-  <div>
-    <%= form.label :account_number, style: "display: block" %>
+  <div class="field">
+    <%= form.label :account_number %>
     <%= form.text_field :account_number %>
   </div>
 
-  <div>
-    <%= form.label :agency, style: "display: block" %>
+  <div class="field">
+    <%= form.label :agency %>
     <%= form.text_field :agency %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
+  <div class="field">
+    <%= form.label :description %>
     <%= form.text_area :description %>
   </div>
 
-  <div>
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>

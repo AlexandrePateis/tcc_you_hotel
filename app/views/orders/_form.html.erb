@@ -11,9 +11,19 @@
     </div>
   <% end %>
 
-   <div class="field">
+  <div class="field">
     <%= form.label :hotel_id %>
     <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a Hotel" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :guest_id %>
+    <%= form.collection_select :guest_id, Guest.all, :id, :name, prompt: "Select a Guest" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :room_id %>
+    <%= form.collection_select :room_id, Room.where(hotel_id: order.hotel_id), :id, :name, prompt: "Select a Room" %>
   </div>
 
   <div class="field">
@@ -24,16 +34,6 @@
   <div class="field">
     <%= form.label :check_out_date %>
     <%= form.date_select :check_out_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :guest_id %>
-    <%= form.collection_select :guest_id, Guest.all, :id, :name, prompt: "Select a Guest" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date %>
   </div>
 
   <div class="actions">

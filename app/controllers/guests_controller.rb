@@ -13,6 +13,8 @@ class GuestsController < ApplicationController
   # GET /guests/new
   def new
     @guest = Guest.new
+    @guest.build_address
+
   end
 
   # GET /guests/1/edit
@@ -65,6 +67,9 @@ class GuestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def guest_params
-      params.require(:guest).permit(:name, :birthdate, :phone, :address_id, :gender, :father_name, :mother_name)
+      params.require(:guest).permit(
+        :name, :birthdate, :phone, :gender, :father_name, :mother_name,
+        address_attributes: [:street, :city, :state, :zip, :country]
+      )
     end
 end

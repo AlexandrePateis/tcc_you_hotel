@@ -22,7 +22,6 @@ class FinancialAccountsController < ApplicationController
   # POST /financial_accounts or /financial_accounts.json
   def create
     @financial_account = FinancialAccount.new(financial_account_params)
-
     respond_to do |format|
       if @financial_account.save
         format.html { redirect_to financial_account_url(@financial_account), notice: "Financial account was successfully created." }
@@ -65,6 +64,6 @@ class FinancialAccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def financial_account_params
-      params.require(:financial_account).permit(:bank, :account_name, :account_number, :agency, :description)
+      params.require(:financial_account).permit(:hotel_id, :bank, :account_name, :account_number, :agency, :description)
     end
 end

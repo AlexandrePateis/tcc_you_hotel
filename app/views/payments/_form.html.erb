@@ -32,6 +32,11 @@
     <%= form.collection_select :order_id, Order.all, :id, :date, { prompt: "Select an Order" }, disabled: true %>
   </div>
 
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price, value: payment.order.room.price, readonly: true %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

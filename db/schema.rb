@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_02_012637) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_07_010409) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -30,6 +30,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_012637) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "hotel_id", null: false
+    t.index ["hotel_id"], name: "index_financial_accounts_on_hotel_id"
   end
 
   create_table "guests", force: :cascade do |t|
@@ -37,11 +39,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_012637) do
     t.date "birthdate"
     t.string "phone"
     t.integer "address_id", null: false
-    t.string "gender"
     t.string "father_name"
     t.string "mother_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "gender"
     t.index ["address_id"], name: "index_guests_on_address_id"
   end
 
@@ -63,9 +65,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_012637) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "hotel_id", null: false
+    t.integer "room_id", null: false
     t.index ["guest_id"], name: "index_orders_on_guest_id"
     t.index ["hotel_id"], name: "index_orders_on_hotel_id"
     t.index ["payment_id"], name: "index_orders_on_payment_id"
+    t.index ["room_id"], name: "index_orders_on_room_id"
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -84,7 +88,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_012637) do
     t.integer "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price"
     t.index ["order_id"], name: "index_payments_on_order_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "price"
+    t.integer "hotel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -95,16 +110,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_012637) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "transaction_type"
+    t.decimal "price"
     t.index ["payment_id"], name: "index_transactions_on_payment_id"
     t.index ["payment_method_id"], name: "index_transactions_on_payment_method_id"
   end
 
+  add_foreign_key "financial_accounts", "hotels"
   add_foreign_key "guests", "addresses"
   add_foreign_key "orders", "guests"
   add_foreign_key "orders", "hotels"
   add_foreign_key "orders", "payments"
+  add_foreign_key "orders", "rooms"
   add_foreign_key "payment_methods", "financial_accounts"
   add_foreign_key "payments", "orders"
+  add_foreign_key "rooms", "hotels"
   add_foreign_key "transactions", "payment_methods"
   add_foreign_key "transactions", "payments"
 end

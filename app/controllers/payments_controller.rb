@@ -23,15 +23,12 @@ class PaymentsController < ApplicationController
   # POST /payments or /payments.json
   def create
     @payment = Payment.new(payment_params)
+    @payment.price = @payment.order.room.price
 
-    respond_to do |format|
-      if @payment.save
-        format.html { redirect_to payment_url(@payment), notice: "Payment was successfully created." }
-        format.json { render :show, status: :created, location: @payment }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
-      end
+    if @payment.save
+      redirect_to @payment, notice: 'Payment was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -65,6 +62,6 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:date, :entry_date, :execution_date, :order_id)
+    params.require(:payment).permit(:date, :entry_date, :execution_date, :order_id, :price)
   end
 end

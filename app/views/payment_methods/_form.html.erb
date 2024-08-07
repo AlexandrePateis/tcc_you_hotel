@@ -1,32 +1,32 @@
-<%= form_with(model: payment_method) do |form| %>
+<%= form_with(model: payment_method, local: true) do |form| %>
   <% if payment_method.errors.any? %>
-    <div style="color: red">
+    <div id="error_explanation">
       <h2><%= pluralize(payment_method.errors.count, "error") %> prohibited this payment_method from being saved:</h2>
 
       <ul>
-        <% payment_method.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% payment_method.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :financial_account_id, style: "display: block" %>
-    <%= form.text_field :financial_account_id %>
+    <%= form.label :financial_account_id, 'Financial Account', style: "display: block" %>
+    <%= form.collection_select :financial_account_id, FinancialAccount.all, :id, :account_name, prompt: "Select a Financial Account" %>
   </div>
 
   <div>
-    <%= form.label :rate, style: "display: block" %>
-    <%= form.text_field :rate %>
+    <%= form.label :fee %>
+    <%= form.number_field :fee %>
   </div>
 
-  <div>
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>

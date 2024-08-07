@@ -23,14 +23,10 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to new_payment_path(order_id: @order.id), notice: 'Order was successfully created. Please complete the payment.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.save
+      redirect_to new_payment_path(order_id: @order.id)
+    else
+      render :new
     end
   end
 
@@ -65,6 +61,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:check_in_date, :check_out_date, :guest_id, :date, :payment_id)
+      params.require(:order).permit(:hotel_id, :guest_id, :room_id, :check_in_date, :check_out_date)
     end
 end

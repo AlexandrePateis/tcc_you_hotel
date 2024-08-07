@@ -22,11 +22,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :payment_id %>
-    <%= form.collection_select :payment_id, Payment.all, :id, :date, prompt: "Select a Payment" %>
-  </div>
-
-  <div class="field">
     <%= form.label :description %>
     <%= form.text_field :description %>
   </div>
@@ -34,6 +29,11 @@
   <div class="field">
     <%= form.label :payment_method_id %>
     <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name, prompt: "Select a Payment Method" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
   </div>
 
   <div class="actions">

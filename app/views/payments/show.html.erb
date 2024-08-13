@@ -1,10 +1,32 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <h1>Detalhes do Pagamento</h1>
 
-<%= render @payment %>
+  <!-- Exibe uma mensagem de sucesso ou erro, se houver -->
+  <p style="color: green"><%= notice %></p>
 
-<div>
-  <%= link_to "Edit this payment", edit_payment_path(@payment) %> |
-  <%= link_to "Back to payments", payments_path %>
+  <!-- Renderiza os detalhes do pagamento -->
+  <div class="card">
+    <div class="card-body">
+      <p><strong>Data:</strong> <%= @payment.date %></p>
+      <p><strong>Data de Entrada:</strong> <%= @payment.entry_date %></p>
+      <p><strong>Data de Execução:</strong> <%= @payment.execution_date %></p>
+      <p><strong>Preço:</strong> <%= @payment.price %></p>
 
-  <%= button_to "Destroy this payment", @payment, method: :delete %>
+      <!-- Link para visualizar a ordem associada -->
+      <% if @payment.order %>
+        <p>
+          <strong>Ordem:</strong>
+          <%= link_to "Visualizar Ordem ##{@payment.order_id}", order_path(@payment.order), class: 'btn btn-info btn-sm' %>
+        </p>
+      <% else %>
+        <p><strong>Ordem:</strong> Nenhuma ordem associada</p>
+      <% end %>
+    </div>
+  <div class="d-flex gap-2 p-2">
+    <%= link_to "Editar", edit_payment_path(@payment), class: 'btn btn-primary btn-sm' %> 
+    <%= link_to "Voltar", payments_path, class: 'btn btn-secondary btn-sm' %>
+    <%= button_to "Excluir", @payment, method: :delete, data: { confirm: 'Tem certeza de que deseja excluir este pagamento?' }, class: 'btn-sm btn btn-danger' %>
+  </div>
+  </div>
+
 </div>

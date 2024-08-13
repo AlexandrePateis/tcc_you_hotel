@@ -1,14 +1,40 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-5">
 
-<h1>Transactions</h1>
+<h1>Lançamentos</h1>
 
-<div id="transactions">
-  <% @transactions.each do |transaction| %>
-    <%= render transaction %>
-    <p>
-      <%= link_to "Show this transaction", transaction %>
-    </p>
-  <% end %>
+<p>
+  <%= link_to 'Novo Lançamento', new_transaction_path, class: 'btn btn-primary' %>
+</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Data de execução</th>
+      <th>Tripo de transação</th>
+      <th>Pagamento</th>
+      <th>Descrição</th>
+      <th>Forma de pagamento</th>
+      <th>Conta Financeira</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.execution_date %></td>
+        <td><%= transaction.transaction_type %></td>
+        <td><%= transaction.payment_id %></td>
+        <td><%= transaction.description %></td>
+        <td><%= transaction.payment_method.name %></td>
+        <td><%= transaction.payment_method.financial_account_id %></td>
+        <td class="d-flex gap-2">
+          <%= link_to 'Mostrar', transaction_path(transaction), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Editar', edit_transaction_path(transaction), class: 'btn btn-primary btn-sm' %>
+          <%= button_to 'Deletar', transaction_path(transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
-
-<%= link_to "New transaction", new_transaction_path %>

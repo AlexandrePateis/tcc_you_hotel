@@ -1,14 +1,33 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <h1>Lista de Pagamentos</h1>
 
-<h1>Payments</h1>
 
-<div id="payments">
-  <% @payments.each do |payment| %>
-    <%= render payment %>
-    <p>
-      <%= link_to "Show this payment", payment %>
-    </p>
-  <% end %>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Data de Entrada</th>
+          <th>Data de Execução</th>
+          <th>Ordem</th>
+          <th>Preço</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @payments.each do |payment| %>
+          <tr>
+            <td><%= payment.entry_date %></td>
+            <td><%= payment.execution_date %></td>
+            <td><%= payment.order_id %></td>
+            <td><%= payment.price %></td>
+            <td class="d-flex gap-2">
+              <%= link_to 'Mostrar', payment_path(payment), class: 'btn btn-primary btn-sm' %>
+              <%= link_to 'Editar', edit_payment_path(payment), class: 'btn btn-primary btn-sm' %>
+              <%= button_to 'Excluir', payment_path(payment), method: :delete, data: { confirm: 'Tem certeza de que deseja excluir este pagamento?' }, class: 'btn btn-danger btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<%= link_to "New payment", new_payment_path %>

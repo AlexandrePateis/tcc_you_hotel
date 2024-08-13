@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_07_224854) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_13_010521) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -85,11 +85,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_224854) do
     t.date "date"
     t.date "entry_date"
     t.date "execution_date"
-    t.integer "order_id", null: false
+    t.integer "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "price"
+    t.integer "transaction_id"
     t.index ["order_id"], name: "index_payments_on_order_id"
+    t.index ["transaction_id"], name: "index_payments_on_transaction_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -104,7 +106,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_224854) do
 
   create_table "transactions", force: :cascade do |t|
     t.date "execution_date"
-    t.integer "payment_id", null: false
+    t.integer "payment_id"
     t.string "description"
     t.integer "payment_method_id", null: false
     t.datetime "created_at", null: false
@@ -123,6 +125,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_224854) do
   add_foreign_key "orders", "rooms"
   add_foreign_key "payment_methods", "financial_accounts"
   add_foreign_key "payments", "orders"
+  add_foreign_key "payments", "transactions"
   add_foreign_key "rooms", "hotels"
   add_foreign_key "transactions", "payment_methods"
   add_foreign_key "transactions", "payments"

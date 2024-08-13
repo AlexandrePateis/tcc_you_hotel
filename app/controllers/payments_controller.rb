@@ -22,6 +22,7 @@ class PaymentsController < ApplicationController
 
   # POST /payments or /payments.json
   def create
+    binding.pry
     @payment = Payment.new(payment_params)
     @payment.price = @payment.order.room.price
 

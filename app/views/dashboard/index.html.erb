@@ -2,15 +2,87 @@
 <html>
 <head>
   <title>Hotel Management Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    .dashboard-header {
+      background: #f8f9fa;
+      padding: 20px;
+      border-bottom: 1px solid #e9ecef;
+      text-align: center;
+    }
+    .dashboard-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card-icon {
+      font-size: 3rem;
+      color: #007bff;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    .card-text {
+      font-size: 1.1rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="jumbotron">
+
+  <div class="container-fluid">
+    <!-- Header -->
+    <div class="dashboard-header">
       <h1 class="display-4">Bem-vindo ao Gerenciamento de Hotéis</h1>
       <p class="lead">Aqui você pode ver os resultados financeiros e relatórios do seu hotel.</p>
-      <hr class="my-4">
-      <p>Use a barra de navegação para acessar diferentes funcionalidades.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-4">
+      <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4 mb-4">
+          <div class="card dashboard-card">
+            <div class="card-body text-center">
+              <div class="card-icon mb-3">
+                <i class="bi bi-house-door"></i> <!-- Use an appropriate icon here -->
+              </div>
+              <h5 class="card-title">Reservas</h5>
+              <p class="card-text">Veja o status das reservas e detalhes dos hóspedes.</p>
+              <a href="#" class="btn btn-primary">Ver Reservas</a>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4 mb-4">
+          <div class="card dashboard-card">
+            <div class="card-body text-center">
+              <div class="card-icon mb-3">
+                <i class="bi bi-cash"></i> <!-- Use an appropriate icon here -->
+              </div>
+              <h5 class="card-title">Financeiro</h5>
+              <p class="card-text">Acompanhe receitas e despesas do hotel.</p>
+              <a href="#" class="btn btn-primary">Ver Relatórios Financeiros</a>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4 mb-4">
+          <div class="card dashboard-card">
+            <div class="card-body text-center">
+              <div class="card-icon mb-3">
+                <i class="bi bi-graph-up"></i> <!-- Use an appropriate icon here -->
+              </div>
+              <h5 class="card-title">Desempenho</h5>
+              <p class="card-text">Analise o desempenho e as métricas do hotel.</p>
+              <a href="#" class="btn btn-primary">Ver Desempenho</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,43 +1,43 @@
-<%= form_with(model: payment, local: true) do |form| %>
-  <% if payment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+<div class="container mt-4">
 
-      <ul>
-        <% payment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <%= form_with(model: payment, local: true) do |form| %>
+    <% if payment.errors.any? %>
+      <div class="alert alert-danger">
+        <h2><%= pluralize(payment.errors.count, "erro") %> impediram que o pagamento fosse salvo:</h2>
+        <ul>
+          <% payment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="mb-3">
+      <%= form.label :entry_date, "Data de Entrada", class: "form-label fw-bold" %>
+      <%= form.date_field :entry_date, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :execution_date, "Data de Execução", class: "form-label fw-bold" %>
+      <%= form.date_field :execution_date, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :order_id, "Ordem", class: "form-label fw-bold" %>
+      <%= form.collection_select :order_id, Order.all, :id, :id, { prompt: "Selecione uma Ordem" }, { class: "form-select", disabled: true } %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :price, "Preço", class: "form-label fw-bold" %>
+      <%= form.number_field :price, class: "form-control", readonly: true %>
+    </div>
+
+    <div class="mt-3">
+      <%= link_to "Voltar", payments_path, class: "btn btn-secondary btn-sm" %>
+      <%= form.submit "Salvar", class: "btn btn-primary btn-sm" %>
+    </div>
+    </div>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :entry_date %>
-    <%= form.date_select :entry_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :execution_date %>
-    <%= form.date_select :execution_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :order_id %>
-    <%= form.hidden_field :order_id, value: @payment.order_id %>
-    <%= form.collection_select :order_id, Order.all, :id, :date, { prompt: "Select an Order" }, disabled: true %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price, value: payment.order.room.price, readonly: true %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

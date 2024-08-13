@@ -13,7 +13,9 @@ class Transaction < ApplicationRecord
   def create_payment
     Payment.create(
       date: execution_date,
-      order_id: nil, # ajuste conforme necessário
+      entry_date: Date.today,  # Defina conforme necessário
+      execution_date: execution_date,
+      order_id: nil,           # Ajuste conforme necessário
       transaction_id: self.id,
       price: self.price
     )

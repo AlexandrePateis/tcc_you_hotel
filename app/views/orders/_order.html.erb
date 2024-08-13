@@ -24,4 +24,13 @@
     <%= order.payment_id %>
   </p>
 
+  <% if order.payment %>
+    <p>
+      <%= link_to 'View Payment', payment_path(order.payment), class: 'btn btn-primary' %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to 'Create Payment', new_payment_path(order_id: order.id), class: 'btn btn-primary' %>
+    </p>
+  <% end %>
 </div>

@@ -1,10 +1,20 @@
 <p style="color: green"><%= notice %></p>
+<div class="container mt-5">
 
-<%= render @room %>
-
-<div>
-  <%= link_to "Edit this room", edit_room_path(@room) %> |
-  <%= link_to "Back to rooms", rooms_path %>
-
-  <%= button_to "Destroy this room", @room, method: :delete %>
+<div class="card mb-4">
+  <div class="card-header">
+    <h5 class="card-title">Detalhes do Quarto</h5>
+  </div>
+  <div class="card-body">
+    <p><strong>Nome do Quarto:</strong> <%= @room.name %></p>
+    <p><strong>Descrição:</strong> <%= @room.description %></p>
+    <p><strong>Preço:</strong> R$ <%= @room.price %></p>
+    <p><strong>Hotel:</strong> <%= @room.hotel.name %></p>
+  </div>
+  <div class="d-flex gap-2 p-2">
+    <%= link_to "Voltar", rooms_path, class: "btn btn-sm btn-secondary" %>
+    <%= link_to "Editar", edit_room_path(@room), class: "btn btn-sm btn-primary" %>
+    <%= button_to "Excluir", @room, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Você tem certeza de que deseja excluir este quarto?" } %>
+  </div>
+</div>
 </div>

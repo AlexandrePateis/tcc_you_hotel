@@ -1,37 +1,41 @@
-<%= form_with(model: hotel) do |form| %>
-  <% if hotel.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(hotel.errors.count, "error") %> prohibited this hotel from being saved:</h2>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+    <%= form_with(model: hotel, class: "p-4 border rounded shadow", local: true) do |form| %>
+      <% if hotel.errors.any? %>
+        <div class="alert alert-danger">
+          <h4><%= pluralize(hotel.errors.count, "erro") %> impediram que o hotel fosse salvo:</h4>
+          <ul>
+            <% hotel.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-      <ul>
-        <% hotel.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div class="form-group mb-3">
+        <%= form.label :name, "Nome do Hotel", class: "form-label" %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+      <div class="form-group mb-3">
+        <%= form.label :cnpj, "CNPJ", class: "form-label" %>
+        <%= form.text_field :cnpj, class: "form-control" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.label :phone, "Telefone", class: "form-label" %>
+        <%= form.text_field :phone, class: "form-control" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.label :manager, "Gerente", class: "form-label" %>
+        <%= form.text_field :manager, class: "form-control" %>
+      </div>
+
+      <div class="">
+        <%= link_to "Voltar", hotels_path, class: "btn btn-sm btn-secondary" %>
+        <%= form.submit "Salvar", class: "btn btn-sm btn-primary" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.label :cnpj, style: "display: block" %>
-    <%= form.text_field :cnpj %>
-  </div>
-
-  <div>
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone %>
-  </div>
-
-  <div>
-    <%= form.label :manager, style: "display: block" %>
-    <%= form.text_field :manager %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

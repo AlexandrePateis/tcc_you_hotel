@@ -1,77 +1,82 @@
-<%= form_with(model: guest, local: true) do |form| %>
-  <% if guest.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(guest.errors.count, "error") %> prohibited this guest from being saved:</h2>
-
-      <ul>
-        <% guest.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :birthdate, style: "display: block" %>
-    <%= form.date_field :birthdate %>
-  </div>
-
-  <div>
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone %>
-  </div>
-
-  <div>
-    <%= form.label :gender, style: "display: block" %>
-    <%= form.select :gender, options_for_select([['Masculino', true], ['Feminino', false]], guest.gender) %>
-  </div>
-
-  <div>
-    <%= form.label :father_name, style: "display: block" %>
-    <%= form.text_field :father_name %>
-  </div>
-
-  <div>
-    <%= form.label :mother_name, style: "display: block" %>
-    <%= form.text_field :mother_name %>
-  </div>
-
-  <h3>Address</h3>
-  <div>
-    <%= form.fields_for :address do |address_form| %>
-      <div>
-        <%= address_form.label :street, style: "display: block" %>
-        <%= address_form.text_field :street %>
-      </div>
-
-      <div>
-        <%= address_form.label :city, style: "display: block" %>
-        <%= address_form.text_field :city %>
-      </div>
-
-      <div>
-        <%= address_form.label :state, style: "display: block" %>
-        <%= address_form.text_field :state %>
-      </div>
-
-      <div>
-        <%= address_form.label :zip, style: "display: block" %>
-        <%= address_form.text_field :zip %>
-      </div>
-
-      <div>
-        <%= address_form.label :country, style: "display: block" %>
-        <%= address_form.text_field :country %>
+<div class="d-flex justify-content-center align-items-center mb-5">
+  <div class="w-50">
+  <%= form_with(model: guest, local: true, class: "p-4 border rounded shadow") do |form| %>
+    <% if guest.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(guest.errors.count, "erro") %> impediram que o convidado fosse salvo:</h4>
+        <ul>
+          <% guest.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
     <% end %>
-  </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+    <div class="mb-3">
+      <%= form.label :name, "Nome", class: "form-label fw-bold" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :birthdate, "Data de Nascimento", class: "form-label fw-bold" %>
+      <%= form.date_field :birthdate, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :phone, "Telefone", class: "form-label fw-bold" %>
+      <%= form.text_field :phone, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :gender, "Gênero", class: "form-label fw-bold" %>
+      <%= form.select :gender, options_for_select([['Masculino', true], ['Feminino', false]], guest.gender), { include_blank: "Selecione" }, { class: "form-select" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :father_name, "Nome do Pai", class: "form-label fw-bold" %>
+      <%= form.text_field :father_name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :mother_name, "Nome da Mãe", class: "form-label fw-bold" %>
+      <%= form.text_field :mother_name, class: "form-control" %>
+    </div>
+
+    <h3 class="mt-4">Endereço</h3>
+    <div class="mb-3">
+      <%= form.fields_for :address do |address_form| %>
+        <div class="mb-3">
+          <%= address_form.label :street, "Rua", class: "form-label fw-bold" %>
+          <%= address_form.text_field :street, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= address_form.label :city, "Cidade", class: "form-label fw-bold" %>
+          <%= address_form.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= address_form.label :state, "Estado", class: "form-label fw-bold" %>
+          <%= address_form.text_field :state, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= address_form.label :zip, "CEP", class: "form-label fw-bold" %>
+          <%= address_form.text_field :zip, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= address_form.label :country, "País", class: "form-label fw-bold" %>
+          <%= address_form.text_field :country, class: "form-control" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mb-3">
+    <%= link_to "Voltar", guests_path, class: "btn btn-sm btn-secondary" %>
+      <%= form.submit "Salvar", class: "btn btn-sm btn-primary" %>
+    </div>
+    </div>
+    </div>
+  <% end %>
+</div>

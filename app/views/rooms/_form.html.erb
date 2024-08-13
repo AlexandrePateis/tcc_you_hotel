@@ -1,6 +1,8 @@
-<%= form_with(model: room) do |form| %>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+<%= form_with(model: room, html: { class: "needs-validation", novalidate: true }) do |form| %>
   <% if room.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
 
       <ul>
@@ -11,28 +13,35 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price, class: "form-label" %>
+    <%= form.text_field :price, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :hotel_id, class: "form-label" %>
+    <%= form.collection_select :hotel_id, Hotel.all, :id, :name, { prompt: "Select a Hotel" }, { class: "form-select" } %>
+  </div>
+
+  <!-- Exemplo de campo de seleção para datas -->
+  <div class="mb-3">
+    <%= form.label :date, class: "form-label" %>
+    <%= form.date_field :date, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
-
-  <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.text_field :price %>
   </div>
-
-  <div class="field">
-    <%= form.label :hotel_id %>
-    <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a Hotel" %>
-  </div>
-
-
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>

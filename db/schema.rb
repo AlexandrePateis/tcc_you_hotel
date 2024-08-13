@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_07_010409) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_07_224854) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_010409) do
     t.date "check_out_date"
     t.integer "guest_id", null: false
     t.date "date"
-    t.integer "payment_id", null: false
+    t.integer "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "hotel_id", null: false

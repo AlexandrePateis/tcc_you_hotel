@@ -1,10 +1,38 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Detalhes da Ordem</h5>
+      
+      <p><strong>Data de Check-in:</strong> <%= @order.check_in_date %></p>
+      <p><strong>Data de Check-out:</strong> <%= @order.check_out_date %></p>
+      <p><strong>Hospede:</strong> <%= @order.guest.name if @order.guest %></p>
+      <p><strong>Quarto:</strong> <%= @order.room.name if @order.room %></p>
+      <p><strong>Hotel:</strong> <%= @order.hotel.name if @order.hotel %></p>
+      <p><strong>Data da Ordem:</strong> <%= @order.date %></p>
 
-<%= render @order %>
+      <% if @order.payment %>
+        <p>
+          <strong>Pagamento:</strong>
+          <span class="badge bg-success">Pago</span>
+        </p>
+        <p>
+          <%= link_to 'Visualizar Pagamento', payment_path(@order.payment), class: 'btn btn-primary btn-sm' %>
+        </p>
+      <% else %>
+        <p>
+          <strong>Pagamento:</strong>
+          <span class="badge bg-danger">Não Pago</span>
+        </p>
+        <p>
+          <%= link_to 'Criar Pagamento', new_payment_path(order_id: @order.id), class: 'btn btn-primary btn-sm' %>
+        </p>
+      <% end %>
 
-<div>
-  <%= link_to "Edit this order", edit_order_path(@order) %> |
-  <%= link_to "Back to orders", orders_path %>
-
-  <%= button_to "Destroy this order", @order, method: :delete %>
+      <div class="mt-3 d-flex gap-2">
+        <%= link_to "Voltar", orders_path, class: "btn btn-secondary btn-sm" %>
+        <%= link_to "Editar", edit_order_path(@order), class: "btn btn-primary btn-sm" %>
+        <%= button_to "Excluir", @order, method: :delete, data: { confirm: "Tem certeza de que deseja excluir esta ordem?" }, class: "btn btn-danger btn-sm" %>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,10 +1,29 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @financial_account %>
-
-<div>
-  <%= link_to "Edit this financial account", edit_financial_account_path(@financial_account) %> |
-  <%= link_to "Back to financial accounts", financial_accounts_path %>
-
-  <%= button_to "Destroy this financial account", @financial_account, method: :delete %>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Conta Financeira</h4>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Banco:</strong> <%= @financial_account.bank %>
+      </p>
+      <p class="card-text">
+        <strong>Nome da Conta:</strong> <%= @financial_account.account_name %>
+      </p>
+      <p class="card-text">
+        <strong>Número da Conta:</strong> <%= @financial_account.account_number %>
+      </p>
+      <p class="card-text">
+        <strong>Agência:</strong> <%= @financial_account.agency %>
+      </p>
+      <p class="card-text">
+        <strong>Descrição:</strong> <%= @financial_account.description %>
+      </p>
+    </div>
+    <div class="d-flex gap-2 p-2">
+      <%= link_to "Voltar", financial_accounts_path, class: "btn btn-secondary btn-sm " %>
+      <%= link_to "Editar", edit_financial_account_path(@financial_account), class: "btn-sm btn btn-primary" %>
+      <%= button_to "Deletar", @financial_account, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza que deseja deletar esta conta financeira?" } %>
+    </div>
+  </div>
 </div>

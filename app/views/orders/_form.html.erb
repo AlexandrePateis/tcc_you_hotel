@@ -1,42 +1,46 @@
-<%= form_with(model: order, local: true) do |form| %>
-  <% if order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+    <%= form_with(model: order, local: true) do |form| %>
+      <% if order.errors.any? %>
+        <div class="alert alert-danger">
+          <h2><%= pluralize(order.errors.count, "erro") %> impediram que a ordem fosse salva:</h2>
 
-      <ul>
-        <% order.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= form.label :hotel_id, "Hotel", class: "form-label fw-bold" %>
+        <%= form.collection_select :hotel_id, Hotel.all, :id, :name, { prompt: "Selecione um Hotel" }, { class: "form-select" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :guest_id, "Hospede", class: "form-label fw-bold" %>
+        <%= form.collection_select :guest_id, Guest.all, :id, :name, { prompt: "Selecione um Hospede" }, { class: "form-select" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :room_id, "Quarto", class: "form-label fw-bold" %>
+        <%= form.collection_select :room_id, Room.all, :id, :name, { prompt: "Selecione um Quarto" }, { class: "form-select" } %>
+      </div>
+
+     <div class="mb-3">
+      <%= form.label :check_in_date, "Data de Check-in", class: "form-label fw-bold" %>
+      <%= form.date_field :check_in_date, class: "form-control" %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :hotel_id %>
-    <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a Hotel" %>
+    <div class="mb-3">
+      <%= form.label :check_out_date, "Data de Check-out", class: "form-label fw-bold" %>
+      <%= form.date_field :check_out_date, class: "form-control" %>
+    </div>
+      <div>
+        <%= link_to "Voltar", orders_path, class: "btn btn-sm btn-secondary" %>
+        <%= form.submit "Salvar", class: "btn btn-sm btn-primary" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :guest_id %>
-    <%= form.collection_select :guest_id, Guest.all, :id, :name, prompt: "Select a Guest" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :room_id %>
-    <%= form.collection_select :room_id, Room.where(hotel_id: order.hotel_id), :id, :name, prompt: "Select a Room" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :check_in_date %>
-    <%= form.date_select :check_in_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :check_out_date %>
-    <%= form.date_select :check_out_date %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

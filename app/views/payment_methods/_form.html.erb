@@ -1,32 +1,36 @@
-<%= form_with(model: payment_method, local: true) do |form| %>
-  <% if payment_method.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(payment_method.errors.count, "error") %> prohibited this payment_method from being saved:</h2>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+    <%= form_with(model: payment_method, class: "p-4 border rounded shadow", local: true) do |form| %>
+      <% if payment_method.errors.any? %>
+        <div class="alert alert-danger">
+          <h4><%= pluralize(payment_method.errors.count, "erro") %> impediram que o método de pagamento fosse salvo:</h4>
+          <ul>
+            <% payment_method.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-      <ul>
-        <% payment_method.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div class="form-group mb-3">
+        <%= form.label :name, "Nome do Método de Pagamento", class: "form-label fw-bold" %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+      <div class="form-group mb-3">
+        <%= form.label :financial_account_id, "Conta Financeira", class: "form-label fw-bold" %>
+        <%= form.collection_select :financial_account_id, FinancialAccount.all, :id, :account_name, { prompt: "Selecione uma Conta Financeira" }, { class: "form-select" } %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.label :fee, "Taxa", class: "form-label fw-bold" %>
+        <%= form.number_field :fee, class: "form-control" %>
+      </div>
+
+      <div class="d-flex gap-2">
+        <%= link_to "Voltar", payment_methods_path, class: "btn btn-sm btn-secondary" %>
+        <%= form.submit "Salvar", class: "btn btn-primary btn-sm" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.label :financial_account_id, 'Financial Account', style: "display: block" %>
-    <%= form.collection_select :financial_account_id, FinancialAccount.all, :id, :account_name, prompt: "Select a Financial Account" %>
-  </div>
-
-  <div>
-    <%= form.label :fee %>
-    <%= form.number_field :fee %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

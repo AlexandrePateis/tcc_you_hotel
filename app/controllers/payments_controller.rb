@@ -26,6 +26,7 @@ class PaymentsController < ApplicationController
     @payment.price = @payment.order.room.price
 
     if @payment.save
+      @payment.order.update!(payment_id: @payment.id)
       redirect_to @payment, notice: 'Payment was successfully created.'
     else
       render :new
@@ -47,10 +48,15 @@ class PaymentsController < ApplicationController
 
   # DELETE /payments/1 or /payments/1.json
   def destroy
-    @payment.destroy!
+    @payment = Payment.find(params[:id])
+
+    # Remover a referência ao pagamento na order antes de deletar
+    @payment.order.update(payment_id: nil)
+
+    @payment.destroy
 
     respond_to do |format|
-      format.html { redirect_to payments_url, notice: "Payment was successfully destroyed." }
+      format.html { redirect_to payments_url, notice: 'Payment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

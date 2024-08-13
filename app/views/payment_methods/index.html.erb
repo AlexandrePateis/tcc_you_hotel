@@ -1,14 +1,34 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-5">
+  <h1 calss=>Métodos de Pagamento</h1>
 
-<h1>Payment methods</h1>
+  <p style="color: green"><%= notice %></p>
 
-<div id="payment_methods">
-  <% @payment_methods.each do |payment_method| %>
-    <%= render payment_method %>
-    <p>
-      <%= link_to "Show this payment method", payment_method %>
-    </p>
-  <% end %>
+  <div class="mb-3">
+    <%= link_to "Novo método de pagamento", new_payment_method_path, class: "btn btn-sm btn-primary" %>
+  </div>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Conta Financeira</th>
+        <th scope="col">Taxa</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @payment_methods.each do |payment_method| %>
+        <tr>
+          <td><%= payment_method.name %></td>
+          <td><%= payment_method.financial_account_id %></td>
+          <td><%= payment_method.rate %></td>
+          <td class="d-flex gap-2">
+            <%= link_to "Mostrar", payment_method, class: "btn btn-sm btn-primary" %>
+            <%= link_to "Editar", edit_payment_method_path(payment_method), class: "btn btn-sm btn-primary" %>
+            <%= button_to "Deletar", payment_method, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza que deseja deletar este método de pagamento?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-
-<%= link_to "New payment method", new_payment_method_path %>

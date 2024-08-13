@@ -1,14 +1,44 @@
 <p style="color: green"><%= notice %></p>
-
-<h1>Orders</h1>
-
-<div id="orders">
-  <% @orders.each do |order| %>
-    <%= render order %>
-    <p>
-      <%= link_to "Show this order", order %>
-    </p>
-  <% end %>
+<div class="container mt-5">
+  <h1>Ordens</h1>
+<div class="mb-3">
+  <%= link_to 'Nova ordem', new_order_path, class: 'btn btn-primary btn-sm' %>
+  </div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Guest</th>
+      <th>Check-in Date</th>
+      <th>Check-out Date</th>
+      <th>Status de pagamento</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.guest.name %></td> <!-- Assuming you have a guest association -->
+        <td><%= order.check_in_date %></td>
+        <td><%= order.check_out_date %></td>
+        <td>
+          <% if order.payment %>
+            <span class="badge bg-success">Pago</span>
+          <% else %>
+            <span class="badge bg-danger">Não Pago</span>
+          <% end %>
+        </td>
+        <td class="d-flex gap-2">
+          <% if order.payment %>
+            <%= link_to 'Ver recebimento', payment_path(order.payment), class: 'btn btn-primary btn-sm' %>
+          <% else %>
+            <%= link_to 'Criar recebimento', new_payment_path(order_id: order.id), class: 'btn btn-success btn-sm' %>
+          <% end %>
+          <%= link_to 'Mostrar', order_path(order), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Editar', edit_order_path(order), class: 'btn btn-primary btn-sm' %>
+          <%= button_to 'Deletar', order, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
-
-<%= link_to "New order", new_order_path %>

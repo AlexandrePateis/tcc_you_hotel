@@ -22,7 +22,6 @@ class OrdersController < ApplicationController
   # POST /orders or /orders.json
   def create
     @order = Order.new(order_params)
-
     if @order.save
       redirect_to new_payment_path(order_id: @order.id)
     else
@@ -45,11 +44,18 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
-    @order.destroy!
+    @order = Order.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
-      format.json { head :no_content }
+    if @order.destroy
+      respond_to do |format|
+        format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to orders_url, alert: @order.errors.full_messages.join(', ') }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
     end
   end
 

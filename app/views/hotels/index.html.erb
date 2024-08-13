@@ -1,14 +1,33 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
-<h1>Hotels</h1>
+<div class="container mt-5">
+  <h1>Hoteis</h1>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">CNPJ</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Gerente</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @hotels.each do |hotel| %>
+        <tr>
+          <td><%= hotel.name %></td>
+          <td><%= hotel.cnpj %></td>
+          <td><%= hotel.phone %></td>
+          <td><%= hotel.manager %></td>
+          <td class="d-flex gap-2">
+            <%= link_to "Mostrar", hotel_path(hotel), class: "btn btn-sm btn-primary" %>
+            <%= link_to "Editar", edit_hotel_path(hotel), class: "btn btn-sm btn-primary" %>
+            <%= button_to "Deletar", hotel, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza que deseja deletar este hotel?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<div id="hotels">
-  <% @hotels.each do |hotel| %>
-    <%= render hotel %>
-    <p>
-      <%= link_to "Show this hotel", hotel %>
-    </p>
-  <% end %>
+  <%= link_to "Novo Hotel", new_hotel_path, class: "btn btn-sm btn-primary" %>
 </div>
-
-<%= link_to "New hotel", new_hotel_path %>

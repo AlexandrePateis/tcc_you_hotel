@@ -1,10 +1,34 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h3>Detalhes do Convidado</h3>
+    </div>
+    <div class="card-body">
+      <p><strong>Nome:</strong> <%= @guest.name %></p>
+      <p><strong>Data de Nascimento:</strong> <%= @guest.birthdate %></p>
+      <p><strong>Telefone:</strong> <%= @guest.phone %></p>
 
-<%= render @guest %>
+      <% if @guest.address %>
+        <p><strong>Endereço:</strong></p>
+        <ul>
+          <li><strong>Rua:</strong> <%= @guest.address.street %></li>
+          <li><strong>Bairro:</strong> <%= @guest.address.neighborhood %></li>
+          <li><strong>Cidade:</strong> <%= @guest.address.city %></li>
+          <li><strong>Estado:</strong> <%= @guest.address.state %></li>
+          <li><strong>CEP:</strong> <%= @guest.address.zip %></li>
+        </ul>
+      <% else %>
+        <p><strong>Endereço:</strong> Não disponível</p>
+      <% end %>
 
-<div>
-  <%= link_to "Edit this guest", edit_guest_path(@guest) %> |
-  <%= link_to "Back to guests", guests_path %>
-
-  <%= button_to "Destroy this guest", @guest, method: :delete %>
+      <p><strong>Gênero:</strong> <%= @guest.gender ? "Masculino" : "Feminino" %></p>
+      <p><strong>Nome do Pai:</strong> <%= @guest.father_name %></p>
+      <p><strong>Nome da Mãe:</strong> <%= @guest.mother_name %></p>
+    </div>
+    <div class="d-flex gap-2 p-2">
+      <%= link_to "Voltar", guests_path, class: "btn btn-sm btn-secondary" %>
+      <%= link_to "Editar", edit_guest_path(@guest), class: "btn btn-primary btn-sm " %>
+      <%= button_to "Deletar ", @guest, method: :delete, class: "btn btn-danger btn-sm ", data: { confirm: "Tem certeza que deseja deletar este convidado?" } %>
+    </div>
+  </div>
 </div>

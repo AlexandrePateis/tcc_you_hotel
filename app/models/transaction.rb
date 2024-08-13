@@ -19,5 +19,6 @@ class Transaction < ApplicationRecord
       transaction_id: self.id,
       price: self.price
     )
+    self.update_column(:payment_id, payment.id)
   end
 end

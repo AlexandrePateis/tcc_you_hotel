@@ -20,7 +20,7 @@
       <% @payment_methods.each do |payment_method| %>
         <tr>
           <td><%= payment_method.name %></td>
-          <td><%= payment_method.financial_account_id %></td>
+          <td><%= payment_method.financial_account.bank %></td>
           <td><%= payment_method.rate %></td>
           <td class="d-flex gap-2">
             <%= link_to "Mostrar", payment_method, class: "btn btn-sm btn-primary" %>

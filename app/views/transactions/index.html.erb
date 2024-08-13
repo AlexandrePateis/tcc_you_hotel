@@ -23,11 +23,11 @@
     <% @transactions.each do |transaction| %>
       <tr>
         <td><%= transaction.execution_date %></td>
-        <td><%= transaction.transaction_type %></td>
+        <td><%= transaction.transaction_type == 'income' ? 'Receita' : 'Despesa' %></td>
         <td><%= transaction.payment_id %></td>
         <td><%= transaction.description %></td>
         <td><%= transaction.payment_method.name %></td>
-        <td><%= transaction.payment_method.financial_account_id %></td>
+        <td><%= transaction.payment_method.financial_account.bank %></td>
         <td class="d-flex gap-2">
           <%= link_to 'Mostrar', transaction_path(transaction), class: 'btn btn-primary btn-sm' %>
           <%= link_to 'Editar', edit_transaction_path(transaction), class: 'btn btn-primary btn-sm' %>

@@ -22,17 +22,23 @@ class PaymentsController < ApplicationController
 
   # POST /payments or /payments.json
   def create
-    binding.pry
     @payment = Payment.new(payment_params)
-    @payment.price = @payment.order.room.price
-
-    if @payment.save
-      @payment.order.update!(payment_id: @payment.id)
-      redirect_to @payment, notice: 'Payment was successfully created.'
-    else
-      render :new
+    @payment.price = @payment.order.room.price if @payment.order
+    
+    respond_to do |format|
+      if @payment.save
+        if @payment.order
+          @payment.order.update!(payment_id: @payment.id)
+        end
+        format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
+        format.json { render :show, status: :created, location: @payment }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @payment.errors, status: :unprocessable_entity }
+      end
     end
   end
+  
 
   # PATCH/PUT /payments/1 or /payments/1.json
   def update

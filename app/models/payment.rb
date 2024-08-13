@@ -1,5 +1,5 @@
 class Payment < ApplicationRecord
   belongs_to :order, optional: true
   belongs_to :financial_transaction, class_name: 'Transaction', dependent: :destroy, optional: true
-  validates :date, :entry_date, :execution_date, presence: true
+  validates :entry_date, :execution_date, presence: true
 end

@@ -19,7 +19,7 @@
 
   <div class="mb-3">
     <%= form.label :transaction_type, "Tipo de Transação", class: "form-label fw-bold" %>
-    <%= form.select :transaction_type, Transaction.transaction_types.keys.map { |type| [type.humanize, type] }, { prompt: "Selecione o Tipo" }, class: "form-select" %>
+    <%= form.select :transaction_type, Transaction.transaction_types.keys.map { |type| [type == 'income' ? 'Receita' : 'Despesa', type] }, { prompt: "Selecione o Tipo" }, class: "form-select" %>
   </div>
 
   <div class="mb-3">

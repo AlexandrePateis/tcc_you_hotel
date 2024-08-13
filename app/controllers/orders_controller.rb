@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     if @order.save
-      redirect_to new_payment_path(order_id: @order.id)
+      redirect_to new_payment_path(order_id: @order.id) # Redireciona com order_id se a order for criada
     else
       render :new
     end

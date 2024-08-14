@@ -3,16 +3,19 @@
 <h1>Lançamentos</h1>
 
 <p>
-  <%= link_to 'Novo Lançamento', new_transaction_path, class: 'btn btn-primary' %>
+<%= link_to 'Nova Receita', new_transaction_path(transaction_type: 'income'), class: 'btn btn-success' %>
+<%= link_to 'Nova Despesa', new_transaction_path(transaction_type: 'expense'), class: 'btn btn-danger' %>
 </p>
 
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Data de execução</th>
       <th>Tripo de transação</th>
       <th>Pagamento</th>
       <th>Descrição</th>
+      <th>Classe Financeira</th>
       <th>Forma de pagamento</th>
       <th>Conta Financeira</th>
       <th>Ações</th>
@@ -22,10 +25,12 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
+        <td><%= transaction.id %></td>
         <td><%= transaction.execution_date %></td>
         <td><%= transaction.transaction_type == 'income' ? 'Receita' : 'Despesa' %></td>
         <td><%= transaction.payment_id %></td>
         <td><%= transaction.description %></td>
+        <td><%= transaction.financial_class ? transaction.financial_class.name : "" %></td>
         <td><%= transaction.payment_method.name %></td>
         <td><%= transaction.payment_method.financial_account.bank %></td>
         <td class="d-flex gap-2">

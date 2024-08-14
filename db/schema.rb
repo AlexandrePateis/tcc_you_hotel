@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_13_010521) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_14_010026) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -32,6 +32,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_010521) do
     t.datetime "updated_at", null: false
     t.integer "hotel_id", null: false
     t.index ["hotel_id"], name: "index_financial_accounts_on_hotel_id"
+  end
+
+  create_table "financial_classes", force: :cascade do |t|
+    t.string "name"
+    t.string "abbreviation"
+    t.boolean "is_revenue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "guests", force: :cascade do |t|
@@ -60,12 +68,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_010521) do
     t.date "check_in_date"
     t.date "check_out_date"
     t.integer "guest_id", null: false
-    t.date "date"
     t.integer "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "hotel_id", null: false
     t.integer "room_id", null: false
+    t.integer "financial_class_id"
+    t.index ["financial_class_id"], name: "index_orders_on_financial_class_id"
     t.index ["guest_id"], name: "index_orders_on_guest_id"
     t.index ["hotel_id"], name: "index_orders_on_hotel_id"
     t.index ["payment_id"], name: "index_orders_on_payment_id"
@@ -82,7 +91,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_010521) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.date "date"
     t.date "entry_date"
     t.date "execution_date"
     t.integer "order_id"
@@ -90,6 +98,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_010521) do
     t.datetime "updated_at", null: false
     t.decimal "price"
     t.integer "transaction_id"
+    t.integer "financial_class_id"
+    t.index ["financial_class_id"], name: "index_payments_on_financial_class_id"
     t.index ["order_id"], name: "index_payments_on_order_id"
     t.index ["transaction_id"], name: "index_payments_on_transaction_id"
   end
@@ -113,6 +123,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_010521) do
     t.datetime "updated_at", null: false
     t.integer "transaction_type"
     t.decimal "price"
+    t.integer "financial_class_id"
+    t.index ["financial_class_id"], name: "index_transactions_on_financial_class_id"
     t.index ["payment_id"], name: "index_transactions_on_payment_id"
     t.index ["payment_method_id"], name: "index_transactions_on_payment_method_id"
   end

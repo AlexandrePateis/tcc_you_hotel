@@ -22,12 +22,14 @@ class OrdersController < ApplicationController
   # POST /orders or /orders.json
   def create
     @order = Order.new(order_params)
+    
     if @order.save
-      redirect_to new_payment_path(order_id: @order.id) # Redireciona com order_id se a order for criada
+      redirect_to new_payment_path(order_id: @order.id, financial_class_id: @order.financial_class_id)
     else
       render :new
     end
   end
+  
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
@@ -67,6 +69,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:hotel_id, :guest_id, :room_id, :check_in_date, :check_out_date)
+      params.require(:order).permit(:hotel_id, :guest_id, :room_id, :check_in_date, :check_out_date, :financial_class_id)
     end
 end

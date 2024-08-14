@@ -1,0 +1,28 @@
+<%= content_for :page_title, "Detalhes da Classe Financeira" %>
+
+<div class="container mt-4">
+  <% if notice %>
+    <div class="alert alert-success">
+      <p><%= notice %></p>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <div class="card-header">
+      Detalhes da Classe Financeira
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= @financial_class.name %></h5>
+      <p class="card-text">
+        <strong>Abreviação:</strong> <%= @financial_class.abbreviation %><br>
+        <strong>Tipo:</strong> <%= @financial_class.is_revenue ? "Receita" : "Despesa" %>
+      </p>
+
+      <div class="d-flex gap-2">
+        <%= link_to "Voltar", financial_classes_path, class: "btn btn-sm btn-secondary" %>
+        <%= link_to "Editar", edit_financial_class_path(@financial_class), class: "btn btn-sm btn-primary" %>
+        <%= button_to "Excluir", @financial_class, method: :delete, data: { confirm: "Tem certeza de que deseja excluir esta classe financeira?" }, class: "btn btn-sm btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

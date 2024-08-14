@@ -13,7 +13,11 @@ class PaymentsController < ApplicationController
   # GET /payments/new
   def new
     @payment = Payment.new
-    @payment.order_id = params[:order_id] if params[:order_id].present?
+    if params[:order_id].present?
+      @payment.order_id = params[:order_id] 
+      order = Order.find(params[:order_id])
+      calculate_price(order)
+    end
   end
 
   # GET /payments/1/edit
@@ -23,8 +27,12 @@ class PaymentsController < ApplicationController
   # POST /payments or /payments.json
   def create
     @payment = Payment.new(payment_params)
-    @payment.price = @payment.order.room.price if @payment.order
     
+    if params[:payment][:order_id].present?
+      order = Order.find(params[:payment][:order_id])
+      @payment.financial_class_id = order.financial_class_id
+    end
+  
     respond_to do |format|
       if @payment.save
         if @payment.order
@@ -38,6 +46,7 @@ class PaymentsController < ApplicationController
       end
     end
   end
+  
   
 
   # PATCH/PUT /payments/1 or /payments/1.json
@@ -70,11 +79,18 @@ class PaymentsController < ApplicationController
 
   private
 
+  def calculate_price(order)
+    if order.check_in_date.present? && order.check_out_date.present?
+      number_of_days = (order.check_out_date - order.check_in_date).to_i + 1
+      @payment.price = order.room.price * number_of_days
+    end
+  end
+
   def set_payment
     @payment = Payment.find(params[:id])
   end
 
   def payment_params
-    params.require(:payment).permit(:date, :entry_date, :execution_date, :order_id, :price)
+    params.require(:payment).permit(:entry_date, :execution_date, :order_id, :price, :financial_class_id)
   end
 end

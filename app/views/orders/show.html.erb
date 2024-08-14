@@ -8,7 +8,6 @@
       <p><strong>Hospede:</strong> <%= @order.guest.name if @order.guest %></p>
       <p><strong>Quarto:</strong> <%= @order.room.name if @order.room %></p>
       <p><strong>Hotel:</strong> <%= @order.hotel.name if @order.hotel %></p>
-      <p><strong>Data da Ordem:</strong> <%= @order.date %></p>
 
       <% if @order.payment %>
         <p>

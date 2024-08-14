@@ -21,12 +21,15 @@
 
   <div class="mb-3">
     <%= form.label :execution_date, "Data de Execução", class: "form-label fw-bold" %>
-    <%= form.date_field :execution_date, class: "form-control" %>
+    <%= form.date_field :execution_date, class: "form-control", value: @payment.execution_date || Date.today %>
   </div>
+
+
   <div class="mb-3">
     <%= form.label :price, "Preço", class: "form-label fw-bold" %>
-    <%= form.number_field :price, class: "form-control" %>
+    <%= form.number_field :price, class: "form-control", value: @payment.price %>
   </div>
+
 
   <%= form.hidden_field :order_id %> <!-- Campo oculto para order_id se presente -->
 

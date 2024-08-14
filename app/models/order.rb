@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   belongs_to :hotel
   belongs_to :room
   belongs_to :payment, optional: true
+  belongs_to :financial_class
 
   before_destroy :check_for_payment
 

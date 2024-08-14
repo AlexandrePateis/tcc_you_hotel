@@ -12,7 +12,14 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
-    @transaction = Transaction.new
+    @transaction = Transaction.new(transaction_type: params[:transaction_type])
+    if params[:transaction_type] == 'income'
+      @financial_classes = FinancialClass.where(is_revenue: true)
+    elsif params[:transaction_type] == 'expense'
+      @financial_classes = FinancialClass.where(is_revenue: false)
+    else
+      @financial_classes = FinancialClass.all
+    end
   end
 
   # GET /transactions/1/edit
@@ -65,6 +72,6 @@ class TransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:execution_date, :transaction_type, :payment_method_id, :price, :description, :payment_id)
+      params.require(:transaction).permit(:financial_class_id, :execution_date, :transaction_type, :payment_method_id, :price, :description, :payment_id)
     end
 end

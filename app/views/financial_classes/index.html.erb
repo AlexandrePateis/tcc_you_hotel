@@ -1,0 +1,31 @@
+<div class="container mt-5">
+
+<h1>Classes Financeiras</h1>
+
+<%= link_to 'Nova Classe Financeira', new_financial_class_path, class: 'btn btn-primary mb-3 btn-sm' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Abreviação</th>
+      <th>Tipo</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @financial_classes.each do |financial_class| %>
+      <tr id="<%= dom_id financial_class %>">
+        <td><%= financial_class.name %></td>
+        <td><%= financial_class.abbreviation %></td>
+        <td><%= financial_class.is_revenue ? 'Receita' : 'Despesa' %></td>
+        <td class="d-flex gap-2">
+          <%= link_to 'Mostrar', financial_class_path(financial_class), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Editar', edit_financial_class_path(financial_class), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Excluir', financial_class_path(financial_class), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

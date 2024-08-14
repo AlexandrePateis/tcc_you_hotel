@@ -6,6 +6,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Data de Entrada</th>
           <th>Data de Execução</th>
           <th>Ordem</th>
@@ -16,6 +17,7 @@
       <tbody>
         <% @payments.each do |payment| %>
           <tr>
+            <td><%= payment.id %></td>
             <td><%= payment.entry_date %></td>
             <td><%= payment.execution_date %></td>
             <td><%= payment.order_id %></td>

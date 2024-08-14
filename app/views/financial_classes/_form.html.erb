@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+<%= form_with(model: financial_class, local: true) do |form| %>
+  <% if financial_class.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(financial_class.errors.count, "erro") %> impedem que a classe financeira seja salva:</h4>
+
+      <ul>
+        <% financial_class.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, "Nome", class: "form-label fw-bold" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :abbreviation, "Abreviação", class: "form-label fw-bold" %>
+    <%= form.text_field :abbreviation, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :is_revenue, "Tipo", class: "form-label fw-bold" %>
+    <%= form.select :is_revenue, [['Receita', true], ['Despesa', false]], { prompt: "Selecione o Tipo" }, class: "form-select" %>
+  </div>
+  <div>
+    <%= link_to "Voltar", financial_classes_path, class: "btn btn-sm btn-secondary" %>
+    <%= form.submit "Salvar", class: "btn btn-sm btn-primary" %>
+  </div>
+  </div>
+  </div>
+<% end %>

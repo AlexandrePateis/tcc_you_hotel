@@ -34,7 +34,7 @@
 
   <div class="mb-3">
     <%= form.label :payment_method_id, "Método de Pagamento", class: "form-label fw-bold" %>
-    <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name, { prompt: "Selecione um Método de Pagamento" }, class: "form-select" %>
+    <%= form.collection_select :payment_method_id, PaymentMethod.joins(:financial_account).where(financial_accounts: { user_id: current_user.id }), :id, :name, { prompt: "Selecione um Método de Pagamento" }, class: "form-select" %>
   </div>
 
   <div class="mb-3">
@@ -48,8 +48,8 @@
 
 
   <div class="mb-3">
+    <%= form.submit "Salvar", class: "btn btn-primary-2 btn-sm" %>
     <%= link_to "Voltar", transactions_path, class: "btn btn-secondary btn-sm" %>
-    <%= form.submit "Salvar", class: "btn btn-primary btn-sm" %>
   </div>
   </div>
   </div>

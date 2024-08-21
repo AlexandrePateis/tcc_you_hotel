@@ -15,17 +15,17 @@
 
       <div class="mb-3">
         <%= form.label :hotel_id, "Hotel", class: "form-label fw-bold" %>
-        <%= form.collection_select :hotel_id, Hotel.all, :id, :name, { prompt: "Selecione um Hotel" }, { class: "form-select" } %>
+        <%= form.collection_select :hotel_id, Hotel.where(user_id: current_user.id), :id, :name, { prompt: "Selecione um Hotel" }, { class: "form-select" } %>
       </div>
 
       <div class="mb-3">
         <%= form.label :guest_id, "Hospede", class: "form-label fw-bold" %>
-        <%= form.collection_select :guest_id, Guest.all, :id, :name, { prompt: "Selecione um Hospede" }, { class: "form-select" } %>
+        <%= form.collection_select :guest_id, Guest.where(user_id: current_user.id), :id, :name, { prompt: "Selecione um Hospede" }, { class: "form-select" } %>
       </div>
 
       <div class="mb-3">
         <%= form.label :room_id, "Quarto", class: "form-label fw-bold" %>
-        <%= form.collection_select :room_id, Room.all, :id, :name, { prompt: "Selecione um Quarto" }, { class: "form-select" } %>
+        <%= form.collection_select :room_id, Room.joins(:hotel).where(hotels: { user_id: current_user.id }), :id, :name, { prompt: "Selecione um Quarto" }, { class: "form-select" } %>
       </div>
 
      <div class="mb-3">
@@ -40,11 +40,11 @@
 
     <div class="mb-3">
       <%= form.label :financial_class_id, "Classe Financeira", class: "form-label fw-bold" %>
-      <%= form.collection_select :financial_class_id, FinancialClass.where(is_revenue: true), :id, :name, {prompt: "Selecione a Classe Financeira"}, class: "form-select" %>
+      <%= form.collection_select :financial_class_id, FinancialClass.where(is_revenue: true, user_id: current_user.id), :id, :name, { prompt: "Selecione a Classe Financeira" }, class: "form-select" %>
     </div>
 
       <div>
-        <%= form.submit "Salvar", class: "btn btn-sm btn-primary" %>
+        <%= form.submit "Salvar", class: "btn btn-sm btn-primary-2" %>
         <%= link_to "Voltar", orders_path, class: "btn btn-sm btn-secondary" %>
       </div>
     <% end %>

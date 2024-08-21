@@ -4,7 +4,7 @@ class HotelsController < ApplicationController
 
   # GET /hotels or /hotels.json
   def index
-    @hotels = Hotel.all
+    @hotels = Hotel.where(user_id: current_user.id)
   end
 
   # GET /hotels/1 or /hotels/1.json

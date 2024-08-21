@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_21_011603) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_21_131013) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -123,7 +123,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_011603) do
     t.integer "hotel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -136,9 +138,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_011603) do
     t.integer "transaction_type"
     t.decimal "price"
     t.integer "financial_class_id"
+    t.integer "user_id", null: false
     t.index ["financial_class_id"], name: "index_transactions_on_financial_class_id"
     t.index ["payment_id"], name: "index_transactions_on_payment_id"
     t.index ["payment_method_id"], name: "index_transactions_on_payment_method_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -169,6 +173,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_011603) do
   add_foreign_key "payments", "transactions"
   add_foreign_key "payments", "users"
   add_foreign_key "rooms", "hotels"
+  add_foreign_key "rooms", "users"
   add_foreign_key "transactions", "payment_methods"
   add_foreign_key "transactions", "payments"
+  add_foreign_key "transactions", "users"
 end

@@ -9,5 +9,7 @@ class User < ApplicationRecord
   has_many :payments, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :financial_classes, dependent: :destroy
+  has_many :transactions, dependent: :destroy
+  has_many :rooms, dependent: :destroy
 
 end

@@ -9,7 +9,7 @@
     <div class="card-body">
       <p><strong>Data de Entrada:</strong> <%= @payment.entry_date %></p>
       <p><strong>Data de Execução:</strong> <%= @payment.execution_date %></p>
-      <p><strong>Preço:</strong> <%= @payment.price %></p>
+      <p><strong>Preço:</strong> <%= number_to_currency(@payment.price, unit: "R$", separator: ",", delimiter: ".", format: "%u%n") %></p>
 
       <!-- Link para visualizar a ordem associada -->
       <% if @payment.order %>
@@ -22,7 +22,7 @@
       <% end %>
     </div>
   <div class="d-flex gap-2 p-2">
-    <%= link_to "Editar", edit_payment_path(@payment), class: 'btn btn-primary btn-sm' %> 
+    <%= link_to "Editar", edit_payment_path(@payment), class: 'btn btn-primary-2 btn-sm' %> 
     <%= link_to "Voltar", payments_path, class: 'btn btn-secondary btn-sm' %>
     <%= button_to "Excluir", @payment, method: :delete, data: { confirm: 'Tem certeza de que deseja excluir este pagamento?' }, class: 'btn-sm btn btn-danger' %>
   </div>

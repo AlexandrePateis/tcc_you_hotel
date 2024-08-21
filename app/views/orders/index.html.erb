@@ -2,7 +2,7 @@
 <div class="container mt-5">
   <h1>Ordens</h1>
 <div class="mb-3">
-  <%= link_to 'Nova ordem', new_order_path, class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Nova ordem', new_order_path, class: 'btn btn-primary-2 btn-sm' %>
   </div>
 <table class="table table-striped">
   <thead>
@@ -29,12 +29,12 @@
         </td>
         <td class="d-flex gap-2">
           <% if order.payment %>
-            <%= link_to 'Ver recebimento', payment_path(order.payment), class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Ver recebimento', payment_path(order.payment), class: 'btn btn-primary-2 btn-sm' %>
           <% else %>
             <%= link_to 'Criar recebimento', new_payment_path(order_id: order.id, financial_class_id: order.financial_class_id), class: 'btn btn-success btn-sm' %>
           <% end %>
-          <%= link_to 'Mostrar', order_path(order), class: 'btn btn-primary btn-sm' %>
-          <%= link_to 'Editar', edit_order_path(order), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Mostrar', order_path(order), class: 'btn btn-primary-2 btn-sm' %>
+          <%= link_to 'Editar', edit_order_path(order), class: 'btn btn-primary-2 btn-sm' %>
           <%= button_to 'Deletar', order, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>

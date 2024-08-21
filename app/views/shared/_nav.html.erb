@@ -1,53 +1,52 @@
 <nav class="navbar navbar-expand-lg bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#">YourHotel</a>
+    <a class="navbar-brand text-white fs-2 text" href="#"><i class="fa-solid fa-hotel"></i> YourHotel</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+          <a class="nav-link active text-white" aria-current="page" href="/"><i class="fa-solid fa-house"></i> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="<%= hotels_path %>">Hoteis</a>
+          <a class="nav-link text-white" href="<%= guests_path %>"><i class="fa-solid fa-person-walking-luggage"></i> Hospedes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="<%= financial_accounts_path %>">Contas Financeiras</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="<%= payment_methods_path %>">Formas de Pagamento</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="<%= guests_path %>">Hospedes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="<%= rooms_path %>">Quartos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="<%= orders_path %>">Ordens</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="<%= transactions_path %>">Lançamentos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="<%= financial_classes_path %>">Classes Financeiras</a>
+          <a class="nav-link text-white" href="<%= orders_path %>"><i class="fa-solid fa-folder-plus"></i> Ordens</a>
         </li>
       </ul>
+       <div class="dropdown">
+        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-briefcase"></i> Operacional
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="<%= hotels_path %>"><i class="fa-solid fa-square-h"></i> Hoteis</a></li>
+          <li><a class="dropdown-item" href="<%= rooms_path %>"><i class="fa-solid fa-person-shelter"></i> Quartos</a></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-money-bill-trend-up"></i> Financeiro
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="<%= financial_accounts_path %>"><i class="fa-solid fa-file-invoice"></i> Contas Financeiras</a></li>
+          <li><a class="dropdown-item" href="<%= payment_methods_path %>"><i class="fa-solid fa-credit-card"></i> Formas de Pagamento</a></li>
+          <li><a class="dropdown-item" href="<%= financial_classes_path %>"><i class="fa-solid fa-magnifying-glass-dollar"></i> Classes Financeiras</a></li>
+          <li><a class="dropdown-item" href="<%= transactions_path %>"><i class="fa-solid fa-tent-arrow-left-right"></i> Lançamentos</a></li>
+          <li><a class="dropdown-item" href="<%= payments_path %>"><i class="fa-solid fa-cash-register"></i> Pagamentos</a></li>
+        </ul>
+      </div>
       <div class="d-flex">
         <% if user_signed_in? %>
         <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle me-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= current_user.name %>
+          <button class="btn btn-sm btn-primary dropdown-toggle me-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user-tie"></i> <%= current_user.name %>
           </button>
           <ul class="dropdown-menu">
-            <li>
-              <%= link_to "Editar", edit_user_registration_path, class:"dropdown-item " %> 
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <%= link_to "Sair", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
-            </li>
+          <li><a class="dropdown-item" href="<%= edit_user_registration_path %>"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
+          <hr class="dropdown-divider">
+          <li><a class="dropdown-item" href="<%= destroy_user_session_path %>"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
           </ul>
         </div>
         <% else %>
@@ -58,3 +57,41 @@
     </div>
   </div>
 </nav>
+<style>
+.bg-primary {
+    --bs-bg-opacity: 1;
+    background-color: rgb(22 21 52) !important;
+}
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: rgb(22 21 52) !important;;
+    --bs-btn-border-color: rgb(22 21 52) !important;;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: rgb(22 21 52) !important;;
+    --bs-btn-hover-border-color: rgb(22 21 52) !important;;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: rgb(22 21 52) !important;;
+    --bs-btn-active-border-color: rgb(22 21 52) !important;;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: rgb(22 21 52) !important;;
+    --bs-btn-disabled-border-color: rgb(22 21 52) !important;;
+}
+.btn-primary-2 {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: rgb(73 70 149) !important;
+    --bs-btn-border-color: rgb(75 75 77) !important;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: rgb(47 46 83) !important;
+    --bs-btn-hover-border-color: rgb(20 19 30) !important;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: rgb(17 17 30) !important;
+    --bs-btn-active-border-color: rgb(84 83 99) !important;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: rgb(22 21 52) !important;
+    --bs-btn-disabled-border-color: rgb(14 14 20) !important;
+}
+</style>

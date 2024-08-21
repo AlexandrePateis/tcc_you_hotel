@@ -19,7 +19,7 @@
 
       <div class="form-group mb-3">
         <%= form.label :financial_account_id, "Conta Financeira", class: "form-label fw-bold" %>
-        <%= form.collection_select :financial_account_id, FinancialAccount.all, :id, :account_name, { prompt: "Selecione uma Conta Financeira" }, { class: "form-select" } %>
+        <%= form.collection_select :financial_account_id, FinancialAccount.where(user_id: current_user.id), :id, :account_name, { prompt: "Selecione uma Conta Financeira" }, { class: "form-select" } %>
       </div>
 
       <div class="form-group mb-3">
@@ -28,8 +28,8 @@
       </div>
 
       <div class="d-flex gap-2">
+        <%= form.submit "Salvar", class: "btn btn-primary-2 btn-sm" %>
         <%= link_to "Voltar", payment_methods_path, class: "btn btn-sm btn-secondary" %>
-        <%= form.submit "Salvar", class: "btn btn-primary btn-sm" %>
       </div>
     <% end %>
   </div>

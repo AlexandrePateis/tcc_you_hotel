@@ -1,9 +1,10 @@
 class FinancialClassesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_financial_class, only: %i[ show edit update destroy ]
 
   # GET /financial_classes or /financial_classes.json
   def index
-    @financial_classes = FinancialClass.all
+    @financial_classes = FinancialClass.where(user_id: current_user.id)
   end
 
   # GET /financial_classes/1 or /financial_classes/1.json

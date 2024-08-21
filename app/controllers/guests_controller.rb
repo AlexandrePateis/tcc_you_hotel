@@ -4,7 +4,7 @@ class GuestsController < ApplicationController
 
   # GET /guests or /guests.json
   def index
-    @guests = Guest.all
+    @guests = Guest.where(user_id: current_user.id)
   end
 
   # GET /guests/1 or /guests/1.json

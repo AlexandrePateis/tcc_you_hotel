@@ -10,6 +10,8 @@
           <th>Data de Entrada</th>
           <th>Data de Execução</th>
           <th>Ordem</th>
+          <th>Classe Financeira</th>
+          <th>Tipo</th>
           <th>Preço</th>
           <th>Ações</th>
         </tr>
@@ -21,10 +23,12 @@
             <td><%= payment.entry_date %></td>
             <td><%= payment.execution_date %></td>
             <td><%= payment.order_id %></td>
-            <td><%= payment.price %></td>
+            <td><%= payment.financial_class.name %></td>
+            <td><%= payment.financial_class.is_revenue ? 'Receita' : 'Despesa'%></td>
+            <td><%= number_to_currency(payment.price, unit: "R$", separator: ",", delimiter: ".", format: "%u%n") %></td>
             <td class="d-flex gap-2">
-              <%= link_to 'Mostrar', payment_path(payment), class: 'btn btn-primary btn-sm' %>
-              <%= link_to 'Editar', edit_payment_path(payment), class: 'btn btn-primary btn-sm' %>
+              <%= link_to 'Mostrar', payment_path(payment), class: 'btn btn-primary-2 btn-sm' %>
+              <%= link_to 'Editar', edit_payment_path(payment), class: 'btn btn-primary-2 btn-sm' %>
               <%= button_to 'Excluir', payment_path(payment), method: :delete, data: { confirm: 'Tem certeza de que deseja excluir este pagamento?' }, class: 'btn btn-danger btn-sm' %>
             </td>
           </tr>

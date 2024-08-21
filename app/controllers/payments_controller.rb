@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
 
   # GET /payments or /payments.json
   def index
-    @payments = Payment.all
+    @payments = Payment.where(user_id: current_user.id)
   end
 
   # GET /payments/1 or /payments/1.json
@@ -34,7 +34,6 @@ class PaymentsController < ApplicationController
       order = Order.find(params[:payment][:order_id])
       @payment.financial_class_id = order.financial_class_id
     end
-  
     respond_to do |format|
       if @payment.save
         if @payment.order

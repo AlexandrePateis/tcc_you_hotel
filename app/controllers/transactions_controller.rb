@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_transaction, only: %i[ show edit update destroy ]
 
   # GET /transactions or /transactions.json
@@ -28,8 +29,13 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
-  
+    @transaction = current_user.transactions.build(transaction_params)
+    if @transaction.financial_class.is_revenue
+      @transaction.transaction_type = 1
+    else
+      @transaction.transaction_type = 2
+    end
+  binding.pry
     respond_to do |format|
       if @transaction.save
         format.html { redirect_to @transaction, notice: "Transaction was successfully created." }

@@ -1,9 +1,10 @@
 class PaymentMethodsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_payment_method, only: %i[ show edit update destroy ]
 
   # GET /payment_methods or /payment_methods.json
   def index
-    @payment_methods = PaymentMethod.all
+    @payment_methods = PaymentMethod.joins(:financial_account).where(financial_accounts: { user_id: current_user.id })
   end
 
   # GET /payment_methods/1 or /payment_methods/1.json

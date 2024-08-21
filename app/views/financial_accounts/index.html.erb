@@ -23,7 +23,7 @@
           <td><%= financial_account.agency %></td>
           <td><%= financial_account.description %></td>
           <td class="d-flex gap-2">
-            <%= link_to "Mostrar", financial_account, class: "btn btn-sm btn-primary" %>
+            <%= link_to "Mostrar", financial_account, class: "btn btn-sm btn-primary-2" %>
             <%= link_to "Editar", edit_financial_account_path(financial_account), class: "btn btn-sm btn-secondary" %>
             <%= button_to "Deletar", financial_account, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza que deseja deletar esta conta financeira?" } %>
           </td>

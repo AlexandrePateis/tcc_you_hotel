@@ -14,7 +14,7 @@
 
       <div class="mb-3">
         <%= form.label :hotel_id, "Hotel", class: "form-label fw-bold" %>
-        <%= form.collection_select :hotel_id, Hotel.all, :id, :name, { prompt: "Selecione um Hotel" }, { class: "form-select" } %>
+        <%= form.collection_select :hotel_id, Hotel.where(user_id: current_user.id), :id, :name, { prompt: "Selecione um Hotel" }, { class: "form-select" } %>
       </div>
 
       <div class="mb-3">
@@ -43,7 +43,7 @@
       </div>
 
       <div class="mb-3">
-        <%= form.submit "Salvar", class: "btn btn-primary btn-sm" %>
+        <%= form.submit "Salvar", class: "btn btn-primary-2 btn-sm" %>
         <%= link_to "Voltar", financial_accounts_path, class: "btn btn-secondary btn-sm" %>
       </div>
     <% end %>

@@ -4,7 +4,7 @@ class FinancialAccountsController < ApplicationController
 
   # GET /financial_accounts or /financial_accounts.json
   def index
-    @financial_accounts = FinancialAccount.all
+    @financial_accounts = FinancialAccount.where(user_id: current_user.id)
   end
 
   # GET /financial_accounts/1 or /financial_accounts/1.json

@@ -1,0 +1,99 @@
+<!-- app/views/dre_reports/index.html.erb -->
+<h1 class="text-center p-2">Relatório DRE</h1>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+<%= form_with url: dre_reports_path, method: :get, local: true do |form| %>
+ <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :start_date, "Data de Início", class: "form-label fw-bold" %>
+      <%= form.date_field :start_date, class: "form-control", value: @report_filter.start_date.strftime('%Y-%m-%d') %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.label :end_date, "Data de Fim", class: "form-label fw-bold" %>
+      <%= form.date_field :end_date, class: "form-control", value: @report_filter.end_date.strftime('%Y-%m-%d') %>
+    </div>
+  </div>
+
+<div class="row mb-3">
+  <div class="col-md-6">
+    <%= form.label :hotel_id, "Hotel", class: "form-label fw-bold" %>
+    <%= form.select :hotel_id, 
+                    options_for_select([['Todos', ''], ['Sem hotel', 'no_hotel']] + Hotel.where(user_id: current_user.id).pluck(:name, :id), params[:hotel_id]), 
+                    { prompt: "Selecione um Hotel" }, 
+                    class: "form-select" %>
+  </div>
+
+
+
+  <div class="col-md-6">
+    <%= form.label :financial_class_id, "Classe Financeira", class: "form-label fw-bold" %>
+    <%= form.collection_select :financial_class_id, 
+                              FinancialClass.where(user_id: current_user.id), 
+                              :id, 
+                              :name, 
+                              { prompt: "Selecione uma Classe Financeira", selected: params[:financial_class_id] }, 
+                              class: "form-select" %>
+  </div>
+
+</div>
+
+<div class="mb-3">
+  <%= form.label :transaction_type, "Tipo", class: "form-label fw-bold" %>
+  <%= form.select :transaction_type, [['Receita', 'income'], ['Despesa', 'expense']], { prompt: "Selecione o Tipo" }, class: "form-select" %>
+</div>
+
+
+
+
+  <div>
+    <%= form.submit "Gerar Relatório", class: "btn btn-primary" %>
+  </div>
+  </div>
+  </div>
+<% end %>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Data</th>
+      <th>Hotel</th>
+      <th>Classe Financeira</th>
+      <th>Ordem</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.id %></td>
+        <td><%= payment.execution_date.strftime("%d/%m/%Y") %></td>
+        <td><%= payment.order.present? && payment.order.hotel.present? ? payment.order.hotel.name : "Sem hotel" %></td>
+        <td><%= payment.financial_class.name %></td>
+        <td><%= payment.order_id ? payment.order_id : "Lançamento sem ordem" %></td>
+        <td><%= number_to_currency(payment.price, unit: "R$ ") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<h2>Resultado do Relatório</h2>
+<p><strong>Total de Receitas:</strong> 
+  <span class="badge bg-success"><%= number_to_currency(@total_revenue, unit: "R$ ") %></span>
+</p>
+
+<p><strong>Total de Despesas:</strong> 
+  <span class="badge bg-danger"><%= number_to_currency(@total_expense, unit: "R$ ") %></span>
+</p>
+
+<p><strong>Resultado Líquido:</strong> 
+  <span class="badge <%= @net_result >= 0 ? 'bg-success' : 'bg-danger' %>">
+    <%= number_to_currency(@net_result, unit: "R$ ") %>
+  </span>
+</p>
+
+
+</div>
+</div>

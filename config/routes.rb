@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'dre_reports/index'
   devise_for :users
   resources :financial_classes
   resources :transactions
@@ -15,4 +16,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/users/sign_out', to: 'devise/sessions#destroy'
   end
+  resources :dre_reports, only: [:index]
+
 end

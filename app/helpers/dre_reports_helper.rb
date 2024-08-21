@@ -1,0 +1,2 @@
+module DreReportsHelper
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_21_131013) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_21_173150) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -110,7 +110,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_131013) do
     t.integer "transaction_id"
     t.integer "financial_class_id"
     t.integer "user_id", null: false
+    t.integer "hotel_id"
     t.index ["financial_class_id"], name: "index_payments_on_financial_class_id"
+    t.index ["hotel_id"], name: "index_payments_on_hotel_id"
     t.index ["order_id"], name: "index_payments_on_order_id"
     t.index ["transaction_id"], name: "index_payments_on_transaction_id"
     t.index ["user_id"], name: "index_payments_on_user_id"
@@ -169,6 +171,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_131013) do
   add_foreign_key "orders", "payments"
   add_foreign_key "orders", "users"
   add_foreign_key "payment_methods", "financial_accounts"
+  add_foreign_key "payments", "hotels"
   add_foreign_key "payments", "orders"
   add_foreign_key "payments", "transactions"
   add_foreign_key "payments", "users"

@@ -29,10 +29,10 @@ class PaymentsController < ApplicationController
   # POST /payments or /payments.json
   def create
     @payment = current_user.payments.build(payment_params)
-    
     if params[:payment][:order_id].present?
       order = Order.find(params[:payment][:order_id])
       @payment.financial_class_id = order.financial_class_id
+      @payment.hotel_id = order.hotel_id
     end
     respond_to do |format|
       if @payment.save
@@ -92,6 +92,6 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:entry_date, :execution_date, :order_id, :price, :financial_class_id)
+    params.require(:payment).permit(:entry_date, :execution_date, :order_id, :price, :financial_class_id, :hotel_id)
   end
 end

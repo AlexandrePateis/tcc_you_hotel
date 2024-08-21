@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
     @order = current_user.orders.build(order_params) # Associa a ordem ao usuário logado
     
     if @order.save
-      redirect_to new_payment_path(order_id: @order.id, financial_class_id: @order.financial_class_id)
+      redirect_to new_payment_path(order_id: @order.id, financial_class_id: @order.financial_class_id, hotel_id: @order.hotel_id)
     else
       render :new
     end

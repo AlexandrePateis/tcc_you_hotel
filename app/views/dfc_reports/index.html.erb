@@ -1,0 +1,76 @@
+<h1 class="text-center p-2">Relatório DFC</h1>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="w-50">
+<%= form_with url: dfc_reports_path, method: :get, local: true do |form| %>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :start_date, "Data de Início", class: "form-label fw-bold" %>
+      <%= form.date_field :start_date, class: "form-control", value: @start_date %>
+    </div>
+    <div class="col-md-6">
+      <%= form.label :end_date, "Data de Fim", class: "form-label fw-bold" %>
+      <%= form.date_field :end_date, class: "form-control", value: @end_date %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :hotel_id, "Hotel", class: "form-label fw-bold" %>
+      <%= form.collection_select :hotel_id, Hotel.where(user_id: current_user.id), :id, :name, 
+          { prompt: "Todos os Hotéis", selected: params[:hotel_id] }, 
+          class: "form-select" %>
+    </div>
+    <div class="col-md-6">
+      <%= form.label :financial_class_id, "Classe Financeira", class: "form-label fw-bold" %>
+      <%= form.collection_select :financial_class_id, FinancialClass.where(user_id: current_user.id), :id, :name, 
+          { prompt: "Todas as Classes Financeiras", selected: params[:financial_class_id] }, 
+          class: "form-select" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :transaction_type, "Tipo", class: "form-label fw-bold" %>
+    <%= form.select :transaction_type, 
+                    [['Receita', 'income'], ['Despesa', 'expense']], 
+                    { prompt: "Todos os Tipos", selected: params[:transaction_type] }, 
+                    class: "form-select" %>
+  </div>
+
+  <%= form.submit "Gerar Relatório", class: "btn btn-primary" %>
+<% end %>
+
+<table class="table table-striped mt-4">
+  <thead>
+    <tr>
+      <th>ID do Pagamento</th>
+      <th>Data de Entrada</th>
+      <th>Valor</th>
+      <th>Classe Financeira</th>
+      <th>Tipo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.id %></td>
+        <td><%= payment.entry_date.strftime("%d/%m/%Y") %></td>
+        <td><%= number_to_currency(payment.price, unit: "R$ ") %></td>
+        <td><%= payment.financial_class.name %></td>
+        <td><%= payment.financial_class.is_revenue ? "Receita" : "Despesa" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><strong>Total de Receitas:</strong> <span class="badge bg-success"><%= number_to_currency(@total_income, unit: "R$ ") %></span></p>
+<p><strong>Total de Despesas:</strong> <span class="badge bg-danger"><%= number_to_currency(@total_expense, unit: "R$ ") %></span></p>
+<p><strong>Fluxo de Caixa Líquido:</strong> 
+  <% if @net_cash_flow >= 0 %>
+    <span class="badge bg-success"><%= number_to_currency(@net_cash_flow, unit: "R$ ") %></span>
+  <% else %>
+    <span class="badge bg-danger"><%= number_to_currency(@net_cash_flow, unit: "R$ ") %></span>
+  <% end %>
+</p>
+</div>
+</div>
+</div>

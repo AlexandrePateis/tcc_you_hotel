@@ -1,5 +1,6 @@
 # app/controllers/dre_reports_controller.rb
 class DreReportsController < ApplicationController
+  before_action :authenticate_user! 
   
   def index
     @payments = Payment.where(user_id: current_user.id)

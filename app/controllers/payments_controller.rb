@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_payment, only: %i[ show edit update destroy ]
 
   # GET /payments or /payments.json
@@ -13,6 +14,7 @@ class PaymentsController < ApplicationController
   # GET /payments/new
   def new
     @payment = Payment.new
+    @payment.user_id = current_user.id
     if params[:order_id].present?
       @payment.order_id = params[:order_id] 
       order = Order.find(params[:order_id])
@@ -26,7 +28,7 @@ class PaymentsController < ApplicationController
 
   # POST /payments or /payments.json
   def create
-    @payment = Payment.new(payment_params)
+    @payment = current_user.payments.build(payment_params)
     
     if params[:payment][:order_id].present?
       order = Order.find(params[:payment][:order_id])

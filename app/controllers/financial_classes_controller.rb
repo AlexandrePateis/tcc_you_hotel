@@ -21,7 +21,7 @@ class FinancialClassesController < ApplicationController
 
   # POST /financial_classes or /financial_classes.json
   def create
-    @financial_class = FinancialClass.new(financial_class_params)
+    @financial_class = current_user.financial_classes.build(financial_class_params) # Associa o guest ao usuário logado
 
     respond_to do |format|
       if @financial_class.save

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :financial_classes
   resources :transactions
   resources :orders
@@ -11,4 +12,7 @@ Rails.application.routes.draw do
   resources :rooms
   root 'dashboard#index'
   # Outras rotas podem ser adicionadas aqui
+  devise_scope :user do
+    get '/users/sign_out', to: 'devise/sessions#destroy'
+  end
 end

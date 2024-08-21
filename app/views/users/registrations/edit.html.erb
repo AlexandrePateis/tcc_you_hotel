@@ -1,0 +1,51 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+      <h3 class="text-center mb-4">Editar Usuário</h3>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "needs-validation", novalidate: true }) do |f| %>
+        <%= render "users/shared/error_messages", resource: resource %>
+        
+        <div class="mb-3">
+          <%= f.label :name, "Nome", class: "form-label fw-bold" %>
+          <%= f.text_field :name, class: "form-control", required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :email, class: "form-label fw-bold" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+          <div class="invalid-feedback">Por favor, insira um email válido.</div>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="mb-3">
+            Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= f.label :password, "Nova senha", class: "form-label fw-bold" %> <i>(deixe em branco se não quiser mudar)</i>
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+          <% if @minimum_password_length %>
+            <em><%= @minimum_password_length %> caracteres mínimo</em>
+          <% end %>
+          <div class="invalid-feedback">Por favor, insira uma senha.</div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password_confirmation, "Confirme sua senha", class: "form-label fw-bold" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+          <div class="invalid-feedback">Por favor, confirme sua senha.</div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :current_password, "Senha atual", class: "form-label fw-bold" %> <i>(precisamos da sua senha atual para confirmar as mudanças)</i>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", required: true %>
+          <div class="invalid-feedback">Por favor, insira sua senha atual.</div>
+        </div>
+
+        <div class="d-grid">
+          <%= f.submit "Atualizar", class: "btn btn-primary" %>
+        <%= link_to "Voltar", :back, class: "btn btn-secondary mt-2" %>
+        </div>
+      <% end %>
+
+    </div>

@@ -1,4 +1,5 @@
 class GuestsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_guest, only: %i[ show edit update destroy ]
 
   # GET /guests or /guests.json
@@ -23,7 +24,7 @@ class GuestsController < ApplicationController
 
   # POST /guests or /guests.json
   def create
-    @guest = Guest.new(guest_params)
+    @guest = current_user.guests.build(guest_params) # Associa o guest ao usuário logado
 
     respond_to do |format|
       if @guest.save

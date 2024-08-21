@@ -1,4 +1,5 @@
 class FinancialAccountsController < ApplicationController
+  before_action :authenticate_user! 
   before_action :set_financial_account, only: %i[ show edit update destroy ]
 
   # GET /financial_accounts or /financial_accounts.json
@@ -21,7 +22,8 @@ class FinancialAccountsController < ApplicationController
 
   # POST /financial_accounts or /financial_accounts.json
   def create
-    @financial_account = FinancialAccount.new(financial_account_params)
+    @financial_account = current_user.financial_accounts.build(financial_account_params) # Associa o financial_account ao usuário logado
+
     respond_to do |format|
       if @financial_account.save
         format.html { redirect_to financial_account_url(@financial_account), notice: "Financial account was successfully created." }

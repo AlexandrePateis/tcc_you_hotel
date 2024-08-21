@@ -1,4 +1,5 @@
 class HotelsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_hotel, only: %i[ show edit update destroy ]
 
   # GET /hotels or /hotels.json
@@ -21,7 +22,7 @@ class HotelsController < ApplicationController
 
   # POST /hotels or /hotels.json
   def create
-    @hotel = Hotel.new(hotel_params)
+    @hotel = current_user.hotels.build(hotel_params) # Associa o hotel ao usuário logado
 
     respond_to do |format|
       if @hotel.save

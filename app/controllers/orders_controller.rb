@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_order, only: %i[ show edit update destroy ]
 
   # GET /orders or /orders.json
@@ -21,7 +22,7 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
-    @order = Order.new(order_params)
+    @order = current_user.orders.build(order_params) # Associa a ordem ao usuário logado
     
     if @order.save
       redirect_to new_payment_path(order_id: @order.id, financial_class_id: @order.financial_class_id)

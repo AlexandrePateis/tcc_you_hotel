@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_21_173150) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_21_224900) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -141,6 +141,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_173150) do
     t.decimal "price"
     t.integer "financial_class_id"
     t.integer "user_id", null: false
+    t.date "entry_date"
     t.index ["financial_class_id"], name: "index_transactions_on_financial_class_id"
     t.index ["payment_id"], name: "index_transactions_on_payment_id"
     t.index ["payment_method_id"], name: "index_transactions_on_payment_method_id"

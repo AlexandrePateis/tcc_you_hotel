@@ -11,13 +11,13 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Data de execução</th>
-      <th>Tripo de transação</th>
+      <th class="text-nowrap">Data de execução</th>
+      <th class="text-nowrap">Tripo de transação</th>
       <th>Pagamento</th>
       <th>Descrição</th>
-      <th>Classe Financeira</th>
-      <th>Forma de pagamento</th>
-      <th>Conta Financeira</th>
+      <th class="text-nowrap">Classe Financeira</th>
+      <th class="text-nowrap">Forma de pagamento</th>
+      <th class="text-nowrap">Conta Financeira</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -26,7 +26,7 @@
     <% @transactions.each do |transaction| %>
       <tr>
         <td><%= transaction.id %></td>
-        <td><%= transaction.execution_date %></td>
+        <td><%= transaction.execution_date.strftime("%d/%m/%Y") %></td>
         <td><%= transaction.transaction_type == 'income' ? 'Receita' : 'Despesa' %></td>
         <td><%= transaction.payment_id %></td>
         <td><%= transaction.description %></td>

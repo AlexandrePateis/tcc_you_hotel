@@ -14,13 +14,13 @@ class Transaction < ApplicationRecord
 
   def create_payment
     Payment.create(
-      entry_date: Date.today,  # Defina conforme necessário
       execution_date: execution_date,
       order_id: nil,           # Ajuste conforme necessário
       transaction_id: self.id,
       price: self.price,
       financial_class_id: self.financial_class_id,
-      user_id: self.user_id
+      user_id: self.user_id,
+      entry_date: self.entry_date
     )
     binding.pry
     self.update_column(:payment_id, payment.id)

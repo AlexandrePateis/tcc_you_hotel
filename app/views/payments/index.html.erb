@@ -20,8 +20,8 @@
         <% @payments.each do |payment| %>
           <tr>
             <td><%= payment.id %></td>
-            <td><%= payment.entry_date %></td>
-            <td><%= payment.execution_date %></td>
+            <td><%= payment.entry_date.strftime("%d/%m/%Y") %></td>
+            <td><%= payment.execution_date.strftime("%d/%m/%Y") %></td>
             <td><%= payment.order_id %></td>
             <td><%= payment.financial_class.name %></td>
             <td><%= payment.financial_class.is_revenue ? 'Receita' : 'Despesa'%></td>

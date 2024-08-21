@@ -9,9 +9,10 @@
     <tr>
       <th>ID</th>
       <th>Hospede</th>
-      <th>Check-in Date</th>
-      <th>Check-out Date</th>
-      <th>Status de pagamento</th>
+      <th class="text-nowrap">Check-in Date</th>
+      <th class="text-nowrap">Check-out Date</th>
+      <th>Quarto</th>
+      <th class="text-nowrap">Status de pagamento</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -20,8 +21,9 @@
       <tr>
         <td><%= order.id%></td> <!-- Assuming you have a guest association -->
         <td><%= order.guest.name %></td> <!-- Assuming you have a guest association -->
-        <td><%= order.check_in_date %></td>
-        <td><%= order.check_out_date %></td>
+        <td><%= order.check_in_date.strftime("%d/%m/%Y") %></td>
+        <td><%= order.check_out_date.strftime("%d/%m/%Y") %></td>
+        <td class="text-nowrap"><%= order.room.name %></td>
         <td>
           <% if order.payment %>
             <span class="badge bg-success">Pago</span>
@@ -31,9 +33,9 @@
         </td>
         <td class="d-flex gap-2">
           <% if order.payment %>
-            <%= link_to 'Ver recebimento', payment_path(order.payment), class: 'btn btn-primary-2 btn-sm' %>
+            <%= link_to 'Ver recebimento', payment_path(order.payment), class: 'text-nowrap btn btn-primary-2 btn-sm' %>
           <% else %>
-            <%= link_to 'Criar recebimento', new_payment_path(order_id: order.id, financial_class_id: order.financial_class_id, hotel_id: order.hotel_id), class: 'btn btn-success btn-sm' %>
+            <%= link_to 'Criar recebimento', new_payment_path(order_id: order.id, financial_class_id: order.financial_class_id, hotel_id: order.hotel_id), class: 'text-nowrap btn btn-success btn-sm' %>
           <% end %>
           <%= link_to 'Mostrar', order_path(order), class: 'btn btn-primary-2 btn-sm' %>
           <%= link_to 'Editar', edit_order_path(order), class: 'btn btn-primary-2 btn-sm' %>

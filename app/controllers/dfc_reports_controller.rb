@@ -4,7 +4,7 @@ class DfcReportsController < ApplicationController
     @start_date = params[:start_date] || Date.today.beginning_of_month
     @end_date = params[:end_date] || Date.today.end_of_month
 
-    @payments = Payment.where(entry_date: @start_date..@end_date)
+    @payments = Payment.where(user_id: current_user.id).where(entry_date: @start_date..@end_date)
     
     # Aplicar filtros adicionais se necessário
     if params[:hotel_id].present?

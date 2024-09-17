@@ -22,7 +22,6 @@ class Transaction < ApplicationRecord
       user_id: self.user_id,
       entry_date: self.entry_date
     )
-    binding.pry
     self.update_column(:payment_id, payment.id)
   end
 end

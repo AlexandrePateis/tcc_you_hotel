@@ -4,9 +4,21 @@ class PaymentsController < ApplicationController
 
   # GET /payments or /payments.json
   def index
-    @payments = Payment.where(user_id: current_user.id)
+    @payments = Payment.where(user_id: current_user.id).page(params[:page]).per(10)
+  
+    if params[:entry_date].present?
+      @payments = @payments.where('DATE(entry_date) = ?', params[:entry_date])
+    end
+  
+    if params[:execution_date].present?
+      @payments = @payments.where('DATE(execution_date) = ?', params[:execution_date])
+    end
+  
+    if params[:type].present?
+      @payments = @payments.joins(:financial_class).where(financial_classes: { is_revenue: params[:type] == 'revenue' })
+    end
   end
-
+  
   # GET /payments/1 or /payments/1.json
   def show
   end

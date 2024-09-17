@@ -1,6 +1,29 @@
 <div class="container mt-4">
   <h1>Lista de Recebimentos/Pagamentos</h1>
 
+  <%= form_with url: payments_path, method: :get, local: true, class: 'mb-3' do |form| %>
+    <div class="row">
+      <div class="col-md-3">
+        <%= form.label :entry_date, "Data de Entrada", class: "fw-bold" %>
+        <%= form.date_field :entry_date, class: 'form-control', value: params[:entry_date] %>
+      </div>
+
+      <div class="col-md-3">
+        <%= form.label :execution_date, "Data de Execução", class: "fw-bold" %>
+        <%= form.date_field :execution_date, class: 'form-control', value: params[:execution_date] %>
+      </div>
+
+      <div class="col-md-3">
+        <%= form.label :type, "Tipo", class: "fw-bold" %>
+        <%= form.select :type, [['Receita', 'revenue'], ['Despesa', 'expense']], { include_blank: 'Selecione' }, class: 'form-select', selected: params[:type] %>
+      </div>
+
+      <div class="col-md-12 mt-2">
+        <%= form.submit 'Filtrar', class: 'btn btn-primary' %>
+        <%= link_to 'Limpar filtros', payments_path, class: 'btn btn-secondary' %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="table-responsive">
     <table class="table table-striped">
@@ -24,7 +47,7 @@
             <td><%= payment.execution_date.strftime("%d/%m/%Y") %></td>
             <td><%= payment.order_id %></td>
             <td><%= payment.financial_class.name %></td>
-            <td><%= payment.financial_class.is_revenue ? 'Receita' : 'Despesa'%></td>
+            <td><%= payment.financial_class.is_revenue ? 'Receita' : 'Despesa' %></td>
             <td><%= number_to_currency(payment.price, unit: "R$", separator: ",", delimiter: ".", format: "%u%n") %></td>
             <td class="d-flex gap-2">
               <%= link_to 'Mostrar', payment_path(payment), class: 'btn btn-primary-2 btn-sm' %>
@@ -35,5 +58,6 @@
         <% end %>
       </tbody>
     </table>
+    <%= paginate @payments %>
   </div>
 </div>

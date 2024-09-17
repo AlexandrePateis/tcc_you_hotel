@@ -1,45 +1,75 @@
 <div class="container mt-5">
+  <h1>Lançamentos</h1>
 
-<h1>Lançamentos</h1>
+ <%= form_with url: transactions_path, method: :get, local: true, class: 'mb-3' do |form| %>
+    <div class="row">
+      <div class="col-md-3">
+        <%= form.label :execution_date, "Data de execução", class: "fw-bold" %>
+        <%= form.date_field :execution_date, class: 'form-control', value: params[:execution_date] %>
+      </div>
 
-<p>
-<%= link_to 'Nova Receita', new_transaction_path(transaction_type: 'income'), class: 'btn btn-sm btn-success' %>
-<%= link_to 'Nova Despesa', new_transaction_path(transaction_type: 'expense'), class: 'btn btn-sm btn-danger' %>
-</p>
+      <div class="col-md-3">
+        <%= form.label :description, "Descrição", class: "fw-bold" %>
+        <%= form.text_field :description, class: 'form-control', value: params[:description] %>
+      </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th class="text-nowrap">Data de execução</th>
-      <th class="text-nowrap">Tripo de transação</th>
-      <th>Pagamento</th>
-      <th>Descrição</th>
-      <th class="text-nowrap">Classe Financeira</th>
-      <th class="text-nowrap">Forma de pagamento</th>
-      <th class="text-nowrap">Conta Financeira</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
+      <div class="col-md-3">
+        <%= form.label :payment_method_id, "Forma de pagamento", class: "fw-bold" %>
+        <%= form.select :payment_method_id, PaymentMethod.pluck(:name, :id), { include_blank: 'Selecione' }, class: 'form-select', selected: params[:payment_method_id] %>
+      </div>
 
-  <tbody>
-    <% @transactions.each do |transaction| %>
+      <div class="col-md-3">
+        <%= form.label :financial_account_id, "Conta Financeira", class: "fw-bold" %>
+        <%= form.select :financial_account_id, FinancialAccount.pluck(:bank, :id), { include_blank: 'Selecione' }, class: 'form-select', selected: params[:financial_account_id] %>
+      </div>
+
+      <div class="col-md-12 mt-2">
+        <%= form.submit 'Filtrar', class: 'btn btn-primary' %>
+        <%= link_to 'Limpar filtros', transactions_path, class: 'btn btn-secondary' %>
+      </div>
+    </div>
+  <% end %>
+
+  <p>
+    <%= link_to 'Nova Receita', new_transaction_path(transaction_type: 'income'), class: 'btn btn-sm btn-success' %>
+    <%= link_to 'Nova Despesa', new_transaction_path(transaction_type: 'expense'), class: 'btn btn-sm btn-danger' %>
+  </p>
+
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= transaction.id %></td>
-        <td><%= transaction.execution_date.strftime("%d/%m/%Y") %></td>
-        <td><%= transaction.transaction_type == 'income' ? 'Receita' : 'Despesa' %></td>
-        <td><%= transaction.payment_id %></td>
-        <td><%= transaction.description %></td>
-        <td><%= transaction.financial_class ? transaction.financial_class.name : "" %></td>
-        <td><%= transaction.payment_method.name %></td>
-        <td><%= transaction.payment_method.financial_account.bank %></td>
-        <td class="d-flex gap-2">
-          <%= link_to 'Mostrar', transaction_path(transaction), class: 'btn btn-primary-2 btn-sm' %>
-          <%= link_to 'Editar', edit_transaction_path(transaction), class: 'btn btn-primary-2 btn-sm' %>
-          <%= button_to 'Deletar', transaction_path(transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-        </td>
+        <th>ID</th>
+        <th class="text-nowrap">Data de execução</th>
+        <th class="text-nowrap">Tipo de transação</th>
+        <th>Pagamento</th>
+        <th>Descrição</th>
+        <th class="text-nowrap">Classe Financeira</th>
+        <th class="text-nowrap">Forma de pagamento</th>
+        <th class="text-nowrap">Conta Financeira</th>
+        <th>Ações</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @transactions.each do |transaction| %>
+        <tr>
+          <td><%= transaction.id %></td>
+          <td><%= transaction.execution_date.strftime("%d/%m/%Y") %></td>
+          <td><%= transaction.transaction_type == 'income' ? 'Receita' : 'Despesa' %></td>
+          <td><%= transaction.payment_id %></td>
+          <td class="text-nowrap"><%= transaction.description %></td>
+          <td><%= transaction.financial_class ? transaction.financial_class.name : "" %></td>
+          <td><%= transaction.payment_method.name %></td>
+          <td><%= transaction.payment_method.financial_account.bank %></td>
+          <td class="d-flex gap-2">
+            <%= link_to 'Mostrar', transaction_path(transaction), class: 'btn btn-primary-2 btn-sm' %>
+            <%= link_to 'Editar', edit_transaction_path(transaction), class: 'btn btn-primary-2 btn-sm' %>
+            <%= button_to 'Deletar', transaction_path(transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @transactions %>
 </div>

@@ -2,11 +2,28 @@ class TransactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_transaction, only: %i[ show edit update destroy ]
 
-  # GET /transactions or /transactions.json
+  # GET /transactions or /transactions.jso
   def index
-    @transactions = Transaction.all
-  end
+    @transactions = Transaction.where(user_id: current_user.id).page(params[:page]).per(10)
 
+    if params[:execution_date].present?
+      @transactions = @transactions.where('DATE(execution_date) = ?', params[:execution_date])
+    end
+
+    if params[:description].present?
+      @transactions = @transactions.where('description LIKE ?', "%#{params[:description]}%")
+    end
+
+    if params[:payment_method_id].present?
+      @transactions = @transactions.where(payment_method_id: params[:payment_method_id])
+    end
+
+    if params[:financial_account_id].present?
+      @transactions = @transactions.joins(:payment_method).where(payment_methods: { financial_account_id: params[:financial_account_id] })
+    end
+
+    @transactions = @transactions.page(params[:page])
+  end
   # GET /transactions/1 or /transactions/1.json
   def show
   end

@@ -41,7 +41,6 @@
         <th>ID</th>
         <th class="text-nowrap">Data de execução</th>
         <th class="text-nowrap">Tipo de transação</th>
-        <th>Pagamento</th>
         <th>Descrição</th>
         <th class="text-nowrap">Classe Financeira</th>
         <th class="text-nowrap">Forma de pagamento</th>
@@ -56,8 +55,7 @@
           <td><%= transaction.id %></td>
           <td><%= transaction.execution_date.strftime("%d/%m/%Y") %></td>
           <td><%= transaction.transaction_type == 'income' ? 'Receita' : 'Despesa' %></td>
-          <td><%= transaction.payment_id %></td>
-          <td class="text-nowrap"><%= transaction.description %></td>
+          <td ><%= transaction.description %></td>
           <td><%= transaction.financial_class ? transaction.financial_class.name : "" %></td>
           <td><%= transaction.payment_method.name %></td>
           <td><%= transaction.payment_method.financial_account.bank %></td>

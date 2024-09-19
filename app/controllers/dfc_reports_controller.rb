@@ -1,4 +1,6 @@
 class DfcReportsController < ApplicationController
+  before_action :authenticate_user! 
+
   def index
     # Filtros para as datas de entrada (entry_date)
     @start_date = params[:start_date] || Date.today.beginning_of_month

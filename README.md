@@ -4,15 +4,15 @@ Bem-vindo ao Your Hotel, um sistema open-source de gestão hoteleira desenvolvid
 Este projeto foi criado para atender às necessidades específicas de hotéis de pequeno porte, proporcionando uma solução prática e acessível para otimizar operações e melhorar a eficiência na gestão diária.
 
 ## Funcionalidades
--Gerenciamento de reservas: Fácil controle de check-ins, check-outs e status de reservas.
+-📅 Gerenciamento de reservas: Fácil controle de check-ins, check-outs e status de reservas.
 
--Gestão financeira: Controle de receitas, despesas e relatórios financeiros detalhados (DRE e DFC).
+-💼 Gestão financeira: Controle de receitas, despesas e relatórios financeiros detalhados (DRE e DFC).
 
--Cadastro de hóspedes: Manutenção e histórico dos hóspedes com dados detalhados.
+-🏨 Cadastro de hóspedes: Manutenção e histórico dos hóspedes com dados detalhados.
 
--Relatórios financeiros: Geração automática de relatórios como DRE (Demonstração de Resultados) e DFC (Demonstrativo de Fluxo de Caixa).
+-📊 Relatórios financeiros: Geração automática de relatórios como DRE (Demonstração de Resultados) e DFC (Demonstrativo de Fluxo de Caixa).
 
--Interface intuitiva: Usabilidade simplificada para garantir que qualquer usuário possa administrar o hotel sem complicações.
+-💻 Interface intuitiva: Usabilidade simplificada para garantir que qualquer usuário possa administrar o hotel sem complicações.
 
 ## Instalação
 
@@ -70,4 +70,4 @@ Sinta-se livre para explorar, modificar e adaptar conforme suas necessidades.
 
 Este projeto é licenciado sob a licença MIT - consulte o arquivo LICENSE para obter mais detalhes.
 
-Agradecemos por conferir o Your Hotel!
+Obrigado por conferir o Your Hotel! 🌟✨

@@ -30,11 +30,11 @@ Antes de iniciar, certifique-se de ter instalado:
 
 Clone este repositório em sua máquina local:
 
-```git clone https://github.com/AlexandrePateis/tcc_you_hotel.git```
+```git clone https://github.com/AlexandrePateis/your_hotel.git```
 
 Acesse o diretório do projeto:
 
-```cd tcc_you_hotel```
+```cd your_hotel```
 
 Instale as dependências do projeto:
 
